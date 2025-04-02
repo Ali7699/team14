@@ -65,13 +65,17 @@ public:
 	//in phase 1, destination is based on random input
 	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
 
-	//moves from All :Universal(always dependant on PT and VT)
 	
-	bool departAll(); 
-
+	
 	bool reschedule();
 
 	bool cancel();
+	
+	
+	//moves from All, same for phase 1 and 2 (always dependant on PT and VT)
+	bool departAll(); 
+
+
 
 	bool departEarly(char destination);
 

@@ -10,7 +10,7 @@ Scheduler::Scheduler() {
 	char rndmchar = 'E';
 }
 
-// Destructor
+
 Scheduler::~Scheduler() {
 	ALL_Patients.~LinkedQueue();
 	Early_Patients.~EarlyPList();
@@ -26,36 +26,41 @@ Scheduler::~Scheduler() {
 
 }
 
-// Loads Input file, intializes all data members
+
 void Scheduler::loadInputFile() {
 
 }
 
-// Main function (Contains simulation while loop, Calls all helper functions) 
+
 void Scheduler::Simulation() {
 
 }
 
-// phase 1 function: updates rndmchar
+
 void Scheduler::randomWaiting() {
 
 }
 
 
 
-//  List departers. these move from a specific list to some location
 
-// moves from All :Universal(always dependant on PT and VT)
+
 bool Scheduler::departAll() {
     return false;
 }
 
 bool Scheduler::reschedule() {
-    return false;
+	bool x=Early_Patients.Reschedule();
+	return x;
+
 }
 
 bool Scheduler::cancel() {
-    return false;
+	Patient*temp;
+	bool x= X_Waiting.cancel(temp);
+	if (x==true) Finished_patients.push(temp);
+
+	return x;
 }
 
 bool Scheduler::departEarly(char destination) {
