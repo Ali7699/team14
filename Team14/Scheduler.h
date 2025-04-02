@@ -27,8 +27,5 @@ private:
 	ArrayStack<Patient*> Finished_patients;
 
 public:
-	//testing github pushh....
-	//testing push 2
-	//testing pull
-
+	
 };
