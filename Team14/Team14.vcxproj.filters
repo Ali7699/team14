@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scheduler">
+      <UniqueIdentifier>{3d3c8701-0874-4315-ba43-32175bb5b209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs">
+      <UniqueIdentifier>{81f7772d-a6e3-407c-941f-817d8a7235e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Patient">
+      <UniqueIdentifier>{b7190c03-cdb2-46c3-8bde-d7251026b6db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Treatment">
+      <UniqueIdentifier>{ffd53dce-1a28-45be-8f37-0c5bb3fd8d7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{fcffbe1c-f625-436e-85e7-ad89ea065447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{44f274bd-4441-4a23-add3-1af6f6b3f514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\priQueue">
+      <UniqueIdentifier>{219fac7b-0d39-4a9e-a8d2-b2968d035c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\LinkedQueue">
+      <UniqueIdentifier>{fd0aedd6-bd86-4eef-8086-e8713a30722c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\EU Waitlist">
+      <UniqueIdentifier>{e9b19aed-3084-484c-b388-13f7570d21e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\EarlyPList">
+      <UniqueIdentifier>{f99ecda6-b8be-419d-b5b2-b7a5e88deaf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\X Waitlist">
+      <UniqueIdentifier>{6caeada7-01b5-4a16-b716-0ea6e7ec36b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADTs\Array stack">
+      <UniqueIdentifier>{a9fab9e3-b8ed-4244-8a18-7404871b1dfd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Scheduler.cpp">
+      <Filter>Scheduler</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scheduler.h">
+      <Filter>Scheduler</Filter>
+    </ClInclude>
+    <ClInclude Include="Patient.h">
+      <Filter>Patient</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Treatment.h">
+      <Filter>Treatment</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedQueue.h">
+      <Filter>ADTs\LinkedQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>ADTs\LinkedQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueADT.h">
+      <Filter>ADTs\LinkedQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="EU_Waitlist.h">
+      <Filter>ADTs\EU Waitlist</Filter>
+    </ClInclude>
+    <ClInclude Include="X_Waitlist.h">
+      <Filter>ADTs\X Waitlist</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrayStack.h">
+      <Filter>ADTs\Array stack</Filter>
+    </ClInclude>
+    <ClInclude Include="StackADT.h">
+      <Filter>ADTs\Array stack</Filter>
+    </ClInclude>
+    <ClInclude Include="EarlyPList.h">
+      <Filter>ADTs\EarlyPList</Filter>
+    </ClInclude>
+    <ClInclude Include="priNode.h">
+      <Filter>ADTs\priQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="priQueue.h">
+      <Filter>ADTs\priQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="ETherapy.h">
+      <Filter>Treatment</Filter>
+    </ClInclude>
+    <ClInclude Include="UTherapy.h">
+      <Filter>Treatment</Filter>
+    </ClInclude>
+    <ClInclude Include="XTherapy.h">
+      <Filter>Treatment</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
