@@ -8,6 +8,7 @@ public:
 	//it is NOT responiosble for when its called, might be called when list is empty so naturally no patient return
 	bool cancel(Patient*&outpatient) {
 		//intilizations
+		outpatient = nullptr;
 		Node<Patient*>*current = frontPtr;
 		Patient* Arr[100];
 		int index = 0;
