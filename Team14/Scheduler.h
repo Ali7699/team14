@@ -32,41 +32,51 @@ private:
 	int totalPatients;
 	int finishedPatients;
 
+	//random variable X
+	int X;
+
+	//current random Waiting List, can be E, U, or X
+	//it is phase 1 exclusive as is Randomwaiting function
+	char rndmchar;
+
 public:
-	/*
-	Function notation
-
-	Phase 1: This Function is only implemented for phase 1
-	Phase 2: ""
-	Polymorphic: this function is implemented in both phases, but will have a diffrent implemnation in phase 2
-	Universal: This function stays the same in both phases
-	
-	
-	*/
-
-
-
-
-
-	//universal: constructor
+	// constructor
 	Scheduler();
 	//destructor
 	~Scheduler();
 
-	//1.Intializer:Universal
+	// Loads Input file, intializes all data members
 	void loadInputFile();
 
 
-	//2.Main function (Contains simulation while loop, Calls all helper functions) : Polymorphic 
+	//Main function (Contains simulation while loop, Calls all other functions) 
 	void Simulation();
 	
-
-	//3.List movers
+	//phase 1 function: updates rndmchar
+	void randomWaiting();
+	
+	//3.List departers. these move from a specific list to some location
+	//in phase 1, destination is based on random input
+	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
 
 	//moves from All :Universal(always dependant on PT and VT)
-	bool moveAll(); 
+	
+	bool departAll(); 
 
+	bool reschedule();
 
+	bool cancel();
 
+	bool departEarly(char destination);
+
+	bool departLate(char destination);
+
+	bool departU_Waiting();
+
+	bool departE_Waiting();
+
+	bool departX_Waiting();
+
+	bool departIn_Treatment(char destination);
 
 };
