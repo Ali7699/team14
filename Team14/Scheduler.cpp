@@ -1,6 +1,7 @@
 #pragma once
 #include "Scheduler.h"
 
+
 Scheduler::Scheduler() {
 	int timeStep = 0;
 	int totalPatients = 0;

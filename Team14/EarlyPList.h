@@ -2,6 +2,7 @@
 #include "priQueue.h"
 #include "Patient.h"
 #include <cstdlib>
+
 class EarlyPList : public priQueue<Patient*>
 {
 public:

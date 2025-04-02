@@ -8,6 +8,12 @@
 #include "Resource.h"
 #include "ArrayStack.h"
 
+#include <fstream>
+#include <iostream>
+#include <cstdlib>
+
+
+
 class Scheduler {
 private:
 	LinkedQueue<Patient*> ALL_Patients;
