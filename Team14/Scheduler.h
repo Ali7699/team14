@@ -26,6 +26,26 @@ private:
 
 	ArrayStack<Patient*> Finished_patients;
 
+	//other data members 
+	
+	int timeStep;
+
+
 public:
+	
+	//constructor
+	Scheduler();
+	//destructor
+	~Scheduler();
+
+	//1.Intializer
+	void loadInputFile();
+
+
+	//2.Main function, Contains simulation while loop, Calls all helper functions
+	void Simulation();
+	
+
+	//3.List movers
 	
 };
