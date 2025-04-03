@@ -14,6 +14,8 @@
 #include <sstream>
 #include <string>
 
+#include "input.h"
+
 
 class Scheduler {
 private:

@@ -37,6 +37,9 @@
     <Filter Include="ADTs\Array stack">
       <UniqueIdentifier>{a9fab9e3-b8ed-4244-8a18-7404871b1dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input/Output">
+      <UniqueIdentifier>{0d8af591-ea33-4b22-baad-d6f4fa243274}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
@@ -95,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="XTherapy.h">
       <Filter>Treatment</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Input/Output</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
