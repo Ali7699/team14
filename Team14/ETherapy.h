@@ -1,6 +1,7 @@
 #pragma once
-#include"Treatment.h"
-#include"Patient.h"
+class Treatment;
+class Patient;
+
 class ETherapy :public Treatment {
     //phase 2 implementation
 public:

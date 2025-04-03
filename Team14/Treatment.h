@@ -1,11 +1,14 @@
 #pragma once
 #include"Resource.h"
-#include"Scheduler.h"
 
 
 #include"ETherapy.h"
 #include"UTherapy.h"
 #include"XTherapy.h"
+
+//including scheduler causes circular depednacy so this is safer
+class Scheduler;
+
 
 class Treatment {
 protected:
