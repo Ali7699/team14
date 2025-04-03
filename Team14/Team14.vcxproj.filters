@@ -99,5 +99,8 @@
     <ClInclude Include="XTherapy.h">
       <Filter>Treatment</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

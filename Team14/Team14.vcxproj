@@ -146,6 +146,7 @@
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="UTherapy.h" />
     <ClInclude Include="XTherapy.h" />
     <ClInclude Include="X_Waitlist.h" />
