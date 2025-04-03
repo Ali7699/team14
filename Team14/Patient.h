@@ -17,7 +17,7 @@ class Patient {
 	// total time patient is in treatment
 	int TT;		
 	
-	enum class PatientStatus {
+	enum PatientStatus {
 		IDLE,	// (VT > current timestep)
 		ERLY,	// (VT < PT)
 		LATE,	//  PT (VT > PT)
@@ -30,8 +30,8 @@ class Patient {
 	LinkedQueue<Treatment*> Treatmentlist;
 
 public:
-	Patient(int id, bool type, int pt, int vt,PatientStatus stat)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(stat) {}  
+	Patient(int id, bool type, int pt, int vt)
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE) {}  
 
 	
 	//getters
@@ -64,13 +64,13 @@ public:
 	//functions
 	void updateStatus(int currentTime) {
 		if (currentTime < VT) {
-			Status = PatientStatus::IDLE;
+			Status = IDLE;
 		}
 		else if (VT < PT) {
-			Status = PatientStatus::ERLY;
+			Status = ERLY;
 		}
 		else if (VT > PT) {
-			Status = PatientStatus::LATE;
+			Status = LATE;
 		}
 	}
 

@@ -1,6 +1,12 @@
 #pragma once
 #include"Resource.h"
 #include"Scheduler.h"
+
+
+#include"ETherapy.h"
+#include"UTherapy.h"
+#include"XTherapy.h"
+
 class Treatment {
 protected:
     // Duration
@@ -13,7 +19,10 @@ protected:
     char type;           
 
 public:
-    Treatment(char t, int d) : type(t), duration(d), ST(-1), AR(nullptr) {}
+    
+    
+    Treatment(char t, int d) : type(t), duration(d), ST(-1), AR(nullptr) { } 
+    
     virtual ~Treatment() {}
 
     // Virtual function to check if the required Resource is available
@@ -21,6 +30,20 @@ public:
 
     // Virtual function to move patient to waiting list
     virtual void moveToWait(Scheduler& scheduler, Patient* patient) = 0;
+    
+    static Treatment* createTreatment(char type, int duration) {
+        switch (type) {
+        case 'X':
+            return new XTherapy(duration);
+        case 'E':
+            return new ETherapy(duration);
+        case 'U':
+            return new UTherapy(duration);
+        default:
+            return nullptr; // Invalid type
+        }
+    }
+
 
     // getters
     char getType() const { return type; }

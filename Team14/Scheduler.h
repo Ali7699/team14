@@ -7,6 +7,7 @@
 #include "X_Waitlist.h"
 #include "Resource.h"
 #include "ArrayStack.h"
+#include "Treatment.h"
 
 #include <fstream>
 #include <iostream>

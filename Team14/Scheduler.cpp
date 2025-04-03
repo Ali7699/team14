@@ -45,8 +45,9 @@ void Scheduler::loadInputFile() {
 		//E devices
 
 	std::getline(inputfile, line); //we are now on line 1
+	std::stringstream ss(line);//intialize string stream
 
-	std::stringstream ss(line);
+
 
 	int temporary;
 
@@ -61,7 +62,7 @@ void Scheduler::loadInputFile() {
 	ss >> temporary; //intake second number
 	for (int i = 0; i < temporary; i++) {
 		Resource* x = new Resource('U', i, -1);
-		E_Devices.enqueue(x);
+		U_Devices.enqueue(x);
 
 	}
 		//X capcitys requires us to shift to 2nd line first before intilaizing for capcitys
@@ -71,10 +72,13 @@ void Scheduler::loadInputFile() {
 	int Xcapacitys[50]; //array to store capacities
 	
 	std::getline(inputfile, line);//move to second line
-	
+	ss.str(line);//reset string stream
+
+	//this loop stores capacities
 	for (int i = 0; i < Xcount; i++) {
 		ss >> Xcapacitys[i];
 	}
+
 	//now intialize
 	for (int i = 0; i < Xcount; i++) {
 		Resource* x = new Resource('X', i, Xcapacitys[i]);
@@ -82,19 +86,54 @@ void Scheduler::loadInputFile() {
 	}
 	
 	/*SECOND TASK: READ PROPABILITIES*/
-		
+	std::getline(inputfile, line);//move to 3rd line
+	ss.str(line);//reset string stream
 
+	ss >> Pcancel;
+	ss >> Presc;
 
+	/*LAST TASK: intialize patient*/
+	std::getline(inputfile, line);//move to 4th line
+	ss.str(line);
+	int patientCount;
+	ss >> patientCount;
 
+	totalPatients = patientCount;
 
+	for (int i = 0; i < patientCount; i++) {
+		std::getline(inputfile, line); //move to ith line where 5<=i<patientcount
+		ss.str(line);
 
+		char TYPE;
+		bool type;
+		int pt;
+		int vt;
+		ss >> TYPE;
+		if (TYPE == 'N') {
+			type = false;
+		}
+		else if (TYPE == 'R') {
 
+			type = true;
+		}
+		ss >> pt;
+		ss >> vt;
 
+		Patient* x = new Patient(i, type, pt, vt);
+		ALL_Patients.enqueue(x);
+		int treatmentcount;
+		ss >> treatmentcount;
 
+		for (int j = 0; j < treatmentcount; j++) {
+			char treatmentType;
+			int duration;
+			ss >> treatmentType;
+			ss >> duration;
+			Treatment* y = Treatment::createTreatment(treatmentType, duration);
+			x->addTreatment(y);
+		}
 
-
-
-
+	}
 
 }
 
