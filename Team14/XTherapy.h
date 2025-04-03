@@ -1,6 +1,5 @@
 #pragma once
-class Treatment;
-class Patient;
+#include "Treatment.h"
 
 class XTherapy :public Treatment {
    
@@ -9,11 +8,11 @@ public:
 
     
 
-    bool canAssign(Scheduler& scheduler, int currentTime) override {
+    bool canAssign( int currentTime) override {
 
     }
 
-    void moveToWait(Scheduler& scheduler, Patient* patient) override {
+    void moveToWait( Patient* patient) override {
 
     }
 };

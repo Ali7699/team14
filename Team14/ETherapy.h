@@ -1,17 +1,16 @@
 #pragma once
-class Treatment;
-class Patient;
+#include "Treatment.h"
 
 class ETherapy :public Treatment {
     //phase 2 implementation
 public:
     ETherapy(int d) : Treatment('E', d) {}
 
-    bool canAssign(Scheduler& scheduler, int currentTime) override {
+    bool canAssign( int currentTime) override {
 
     }
 
-    void moveToWait(Scheduler& scheduler, Patient* patient) override {
+    void moveToWait( Patient* patient) override {
 
     }
 };

@@ -43,6 +43,9 @@
       <Filter>Scheduler</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Treatment.cpp">
+      <Filter>Treatment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scheduler.h">

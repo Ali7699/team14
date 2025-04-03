@@ -84,7 +84,6 @@ public:
 	bool departAll(); 
 
 
-
 	bool departEarly(char destination);
 
 	bool departLate(char destination);

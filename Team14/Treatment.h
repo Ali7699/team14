@@ -2,13 +2,10 @@
 #include"Resource.h"
 
 
-#include"ETherapy.h"
-#include"UTherapy.h"
-#include"XTherapy.h"
 
 //including scheduler causes circular depednacy so this is safer
 class Scheduler;
-
+class Patient;
 
 class Treatment {
 protected:
@@ -29,23 +26,12 @@ public:
     virtual ~Treatment() {}
 
     // Virtual function to check if the required Resource is available
-    virtual bool canAssign(Scheduler& scheduler, int currentTime) = 0;
+    virtual bool canAssign( int currentTime) = 0;
 
     // Virtual function to move patient to waiting list
-    virtual void moveToWait(Scheduler& scheduler, Patient* patient) = 0;
+    virtual void moveToWait( Patient* patient) = 0;
     
-    static Treatment* createTreatment(char type, int duration) {
-        switch (type) {
-        case 'X':
-            return new XTherapy(duration);
-        case 'E':
-            return new ETherapy(duration);
-        case 'U':
-            return new UTherapy(duration);
-        default:
-            return nullptr; // Invalid type
-        }
-    }
+    static Treatment* createTreatment(char type, int duration);
 
 
     // getters
