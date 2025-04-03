@@ -29,6 +29,38 @@ Scheduler::~Scheduler() {
 
 void Scheduler::loadInputFile() {
 
+	//input file must always be called input
+	//Place it in Input folder in project folder so its processed
+	std::ifstream inputfile("Input/input");
+
+	if (!inputfile) {
+		//If we cant read, call UI, tell simulation failed, and update output correctly. 
+		//this should be handeled by the loader directly, never simulation function
+	
+	}
+
+	std::string line;
+
+	//line 1: allocate resources
+
+	std::getline(inputfile, line);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -43,24 +75,24 @@ void Scheduler::randomWaiting() {
 
 
 
-
-
-bool Scheduler::departAll() {
-    return false;
-}
-
 bool Scheduler::reschedule() {
-	bool x=Early_Patients.Reschedule();
+	bool x = Early_Patients.Reschedule();
 	return x;
 
 }
 
 bool Scheduler::cancel() {
-	Patient*temp;
-	bool x= X_Waiting.cancel(temp);
-	if (x==true) Finished_patients.push(temp);
+	Patient* temp;
+	bool x = X_Waiting.cancel(temp);
+	if (x == true) Finished_patients.push(temp);
 
 	return x;
+}
+
+
+
+bool Scheduler::departAll() {
+    return false;
 }
 
 bool Scheduler::departEarly(char destination) {

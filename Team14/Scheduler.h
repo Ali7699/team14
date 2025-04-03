@@ -11,7 +11,8 @@
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
-
+#include <sstream>
+#include <string>
 
 
 class Scheduler {
@@ -38,6 +39,9 @@ private:
 	int totalPatients;
 	int finishedPatients;
 
+	int Pcancel;
+	int Presc;
+
 	//random variable X
 	int X;
 
@@ -61,10 +65,7 @@ public:
 	//phase 1 function: updates rndmchar
 	void randomWaiting();
 	
-	//3.List departers. these move from a specific list to some location
-	//in phase 1, destination is based on random input
-	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
-
+	
 	
 	
 	bool reschedule();
@@ -72,6 +73,10 @@ public:
 	bool cancel();
 	
 	
+	//3.List departers. these move from a specific list to some location
+	//in phase 1, destination is based on random input
+	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
+
 	//moves from All, same for phase 1 and 2 (always dependant on PT and VT)
 	bool departAll(); 
 
