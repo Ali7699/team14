@@ -81,7 +81,8 @@ public:
 	}
 	
 	bool removeTreatment(Treatment*&currenttreatment) {
-		bool x = Treatmentlist.dequeue(currenttreatment);
+		return Treatmentlist.dequeue(currenttreatment); 
+		
 	}
 
 	bool isEmpty() {

@@ -2,12 +2,8 @@
 #include "Scheduler.h"
 
 
-Scheduler::Scheduler() {
-	int timeStep = 0;
-	int totalPatients = 0;
-	int finishedPatients = 0;
-	int X = 0;
-	char rndmchar = 'E';
+Scheduler::Scheduler()
+	: timeStep(0), totalPatients(0), finishedPatients(0), X(0), rndmchar('E'),Pcancel(0),Presc(0) {
 }
 
 
@@ -73,6 +69,7 @@ void Scheduler::loadInputFile() {
 	
 	std::getline(inputfile, line);//move to second line
 	ss.str(line);//reset string stream
+	ss.clear();
 
 	//this loop stores capacities
 	for (int i = 0; i < Xcount; i++) {
@@ -88,6 +85,7 @@ void Scheduler::loadInputFile() {
 	/*SECOND TASK: READ PROPABILITIES*/
 	std::getline(inputfile, line);//move to 3rd line
 	ss.str(line);//reset string stream
+	ss.clear();
 
 	ss >> Pcancel;
 	ss >> Presc;
@@ -95,6 +93,8 @@ void Scheduler::loadInputFile() {
 	/*LAST TASK: intialize patient*/
 	std::getline(inputfile, line);//move to 4th line
 	ss.str(line);
+	ss.clear();
+
 	int patientCount;
 	ss >> patientCount;
 
@@ -102,6 +102,7 @@ void Scheduler::loadInputFile() {
 
 	for (int i = 0; i < patientCount; i++) {
 		std::getline(inputfile, line); //move to ith line where 5<=i<patientcount
+		ss.clear();
 		ss.str(line);
 
 		char TYPE;
