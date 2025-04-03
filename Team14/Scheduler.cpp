@@ -41,13 +41,48 @@ void Scheduler::loadInputFile() {
 
 	std::string line;
 
-	//line 1: allocate resources
+	/*FIRST TASK: ALLOCATE RESOURCES*/
+		//E devices
 
-	std::getline(inputfile, line);
+	std::getline(inputfile, line); //we are now on line 1
 
+	std::stringstream ss(line);
 
+	int temporary;
 
+	ss >> temporary; //we now intake first number
+	
+	for (int i = 0; i < temporary; i++) {
+		Resource* x = new Resource('E', i, -1);
+		E_Devices.enqueue(x);
 
+	}
+		//U devices
+	ss >> temporary; //intake second number
+	for (int i = 0; i < temporary; i++) {
+		Resource* x = new Resource('U', i, -1);
+		E_Devices.enqueue(x);
+
+	}
+		//X capcitys requires us to shift to 2nd line first before intilaizing for capcitys
+	ss >> temporary; //third number
+
+	int Xcount = temporary; //we cant intialize without capacity so we store
+	int Xcapacitys[50]; //array to store capacities
+	
+	std::getline(inputfile, line);//move to second line
+	
+	for (int i = 0; i < Xcount; i++) {
+		ss >> Xcapacitys[i];
+	}
+	//now intialize
+	for (int i = 0; i < Xcount; i++) {
+		Resource* x = new Resource('X', i, Xcapacitys[i]);
+		X_Rooms.enqueue(x);
+	}
+	
+	/*SECOND TASK: READ PROPABILITIES*/
+		
 
 
 
