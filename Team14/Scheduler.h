@@ -10,7 +10,6 @@
 
 #include "Treatment.h"
 
-#include "UI.h"
 
 #include <fstream>
 #include <iostream>
@@ -21,7 +20,8 @@
 
 
 
-
+class UI;
+//forward declaration alleviates circuilar dependancy and allows ui Pointer.
 
 class Scheduler {
 private:

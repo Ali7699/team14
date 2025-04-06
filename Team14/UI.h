@@ -1,12 +1,20 @@
 #pragma once
-
+#include "Scheduler.h"
+using namespace std;
 class UI {
 
 public:
 
 
 	void printAll() {
-
+		
+		
+		
+		
+		
+		cout << "Press any key to display next timestep\n";
+		int garbage;
+		std::cin >>garbage ;
 	}
 
 	void printListLine(int currentline) {
@@ -68,5 +76,29 @@ public:
 
 	void printAllList(LinkedQueue<Patient*>ALLlist) {
 		
+	}
+	void printWaitinglists() {
+
+	}
+	void printEarly() {
+
+	}
+	void printLate() {
+
+	}
+	void printE() {
+
+	}
+	void prinU() {
+
+	}
+	void printX() {
+
+	}
+	void printInTreatment() {
+
+	}
+	void printfinished() {
+
 	}
 };
