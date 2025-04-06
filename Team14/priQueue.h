@@ -63,7 +63,7 @@ public:
     bool isEmpty() const {
         return head == nullptr;
     }
-    
+    //returns item count
     int count() const
     {
         int counter = 0;

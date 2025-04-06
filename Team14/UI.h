@@ -80,19 +80,10 @@ public:
 
 
 	}
-	template<typename T>
-	int countPatients(T& list) {
-
-	}
 
 	void WaitingHelper(LinkedQueue<Patient*>& List, char TYPE) {
-		int count = 0;
-		LinkedQueue<Patient*>tempList = List;
+		int count = List.count();
 		Patient* garbage;
-		while (tempList.isEmpty()) {
-			tempList.dequeue(garbage);
-			count++;
-		}
 		cout << count << " " << TYPE << "-therapy patients:";
 		for (int i = 0; i < count; i++) {
 			List.dequeue(garbage);
@@ -107,13 +98,7 @@ public:
 		
 		printListLine(0);
 		
-		int count = 0;
-		LinkedQueue<Patient*>temp = alllist;
-		while (alllist.isEmpty()) {
-			Patient* garbage;
-			alllist.dequeue(garbage);
-			count++;
-		}
+		int count = alllist.count();
 		
 		cout << count << "  patients remaining: ";
 
@@ -121,7 +106,7 @@ public:
 
 		for (int i = 0; i < count; i++) {
 			Patient* tempPatient;
-			temp.dequeue(tempPatient);
+			alllist.dequeue(tempPatient);
 			cout << "P" << tempPatient->getId() << "_" << tempPatient->getVT() << ",";
 		}
 		cout << ".....\n";
@@ -136,6 +121,8 @@ public:
 	
 	void printEarly(priQueue<Patient*>input) {
 		printListLine(2);
+		int count = input.count();
+
 	}
 
 	void printLate() {

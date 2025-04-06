@@ -57,6 +57,7 @@ public :
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
 	bool peek(T& frntEntry)  const;	
+	int count() const;
 	~LinkedQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -165,8 +166,10 @@ bool LinkedQueue<T>:: peek(T& frntEntry) const
 
 }
 ///////////////////////////////////////////////////////////////////////////////////
+
+//returns item count
 template <typename T>
-int count() 
+int LinkedQueue<T>::count() const
 {
 	int counter = 0;
 	Node<T>* current = frontPtr;

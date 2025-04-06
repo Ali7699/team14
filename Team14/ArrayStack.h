@@ -57,6 +57,7 @@ public:
 		return true;
 	}  // end peek
 
+	//returns item count
 	int count() const
 	{
 		return top + 1;  // Since top is the index of the top element
