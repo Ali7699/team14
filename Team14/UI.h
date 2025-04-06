@@ -29,7 +29,7 @@ public:
 			7 = In - treatment List
 			8 = finished patients
 		*/
-		std::string temp;
+		string temp;
 		switch (currentline) {
 		case 0:
 			temp = "ALL List";
@@ -63,18 +63,20 @@ public:
 		}
 
 		for (int i = 0; i < 20; i++) {
-			std::cout << "=";
+			cout << "=";
 		}
-		std::cout << " " << temp << " ";
+		cout << " " << temp << " ";
 		for (int i = 0; i < 20; i++) {
-			std::cout << "=";
+			cout << "=";
 		}
-		std::cout << "\n";
+		cout << "\n";
 
 
 	}
 
 	void printAllList(LinkedQueue<Patient*>alllist) {
+		
+		
 		int count = 0;
 		LinkedQueue<Patient*>temp = alllist;
 		while (alllist.isEmpty()) {
@@ -94,6 +96,7 @@ public:
 		}
 		cout << ".....\n";
 	}
+
 	void printWaitinglists() {
 
 	}
