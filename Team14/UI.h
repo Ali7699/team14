@@ -76,6 +76,7 @@ public:
 
 	void printAllList(LinkedQueue<Patient*>alllist) {
 		
+		printListLine(0);
 		
 		int count = 0;
 		LinkedQueue<Patient*>temp = alllist;
@@ -97,9 +98,30 @@ public:
 		cout << ".....\n";
 	}
 
-	void printWaitinglists() {
+	void WaitingHelper(LinkedQueue<Patient*>& List, char TYPE) {
+		int count = 0;
+		LinkedQueue<Patient*>tempList = List;
+		Patient* garbage;
+		while (tempList.isEmpty()) {
+			tempList.dequeue(garbage);
+			count++;
+		}
+		cout << count << " " << TYPE << "-therapy patients:";
+		for (int i = 0; i < count; i++) {
+			List.dequeue(garbage);
+			cout << " " << garbage->getId() << ",";
+		}
+		cout << "\n";
 
 	}
+	
+	void printWaitinglists(EU_Waitlist U, EU_Waitlist E, X_Waitlist X) {
+		printListLine(1);
+		WaitingHelper(U, 'U');
+		WaitingHelper(E, 'E');
+		WaitingHelper(X, 'X');
+	}
+	
 	void printEarly() {
 
 	}
