@@ -41,6 +41,8 @@ private:
 
 	ArrayStack<Patient*> Finished_patients;
 
+	UI* ui;
+	
 	//other data members 
 	
 	int timeStep;
@@ -63,6 +65,11 @@ public:
 	//destructor
 	~Scheduler();
 
+	void setUI(UI* uii) {
+		ui = uii;
+	}
+	
+	
 	// Loads Input file, intializes all data members
 	void loadInputFile();
 

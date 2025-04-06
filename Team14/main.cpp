@@ -4,5 +4,9 @@
 
 #include "Scheduler.h"
 int main() {
+	UI ui;
+	Scheduler schedule;
+	
+	schedule.setUI(&ui);
 
 };

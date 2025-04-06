@@ -1,5 +1,4 @@
 #pragma once
-class scheduler;
 
 class UI {
 
@@ -67,5 +66,7 @@ public:
 
 	}
 
-	void print
+	void printAllList(LinkedQueue<Patient*>ALLlist) {
+		
+	}
 };
