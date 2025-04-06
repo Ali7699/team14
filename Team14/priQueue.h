@@ -63,4 +63,18 @@ public:
     bool isEmpty() const {
         return head == nullptr;
     }
+    
+    int count() const
+    {
+        int counter = 0;
+        priNode<T>* current = head;
+
+        while (current != nullptr)
+        {
+            counter++;
+            current = current->getNext();
+        }
+
+        return counter;
+    }
 };

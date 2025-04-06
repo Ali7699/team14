@@ -7,7 +7,8 @@ public:
 
 
 	void printAll() {
-		
+		printNumbers();
+
 		
 		
 		
@@ -17,6 +18,12 @@ public:
 		std::cin >>garbage ;
 	}
 
+	void printNumbers() {
+
+	}
+
+	
+	//helpers
 	void printListLine(int currentline) {
 		/*
 			0 = ALL List
@@ -73,7 +80,29 @@ public:
 
 
 	}
+	template<typename T>
+	int countPatients(T& list) {
 
+	}
+
+	void WaitingHelper(LinkedQueue<Patient*>& List, char TYPE) {
+		int count = 0;
+		LinkedQueue<Patient*>tempList = List;
+		Patient* garbage;
+		while (tempList.isEmpty()) {
+			tempList.dequeue(garbage);
+			count++;
+		}
+		cout << count << " " << TYPE << "-therapy patients:";
+		for (int i = 0; i < count; i++) {
+			List.dequeue(garbage);
+			cout << " " << garbage->getId() << ",";
+		}
+		cout << "\n";
+
+	}
+
+	//print lists
 	void printAllList(LinkedQueue<Patient*>alllist) {
 		
 		printListLine(0);
@@ -98,23 +127,6 @@ public:
 		cout << ".....\n";
 	}
 
-	void WaitingHelper(LinkedQueue<Patient*>& List, char TYPE) {
-		int count = 0;
-		LinkedQueue<Patient*>tempList = List;
-		Patient* garbage;
-		while (tempList.isEmpty()) {
-			tempList.dequeue(garbage);
-			count++;
-		}
-		cout << count << " " << TYPE << "-therapy patients:";
-		for (int i = 0; i < count; i++) {
-			List.dequeue(garbage);
-			cout << " " << garbage->getId() << ",";
-		}
-		cout << "\n";
-
-	}
-	
 	void printWaitinglists(EU_Waitlist U, EU_Waitlist E, X_Waitlist X) {
 		printListLine(1);
 		WaitingHelper(U, 'U');
@@ -122,24 +134,30 @@ public:
 		WaitingHelper(X, 'X');
 	}
 	
-	void printEarly() {
-
+	void printEarly(priQueue<Patient*>input) {
+		printListLine(2);
 	}
+
 	void printLate() {
 
 	}
+
 	void printE() {
 
 	}
+
 	void prinU() {
 
 	}
+
 	void printX() {
 
 	}
+
 	void printInTreatment() {
 
 	}
+
 	void printfinished() {
 
 	}

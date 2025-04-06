@@ -57,6 +57,11 @@ public:
 		return true;
 	}  // end peek
 
+	int count() const
+	{
+		return top + 1;  // Since top is the index of the top element
+	}
+
 }; // end ArrayStack
 
 #endif

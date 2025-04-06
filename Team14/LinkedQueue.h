@@ -165,6 +165,24 @@ bool LinkedQueue<T>:: peek(T& frntEntry) const
 
 }
 ///////////////////////////////////////////////////////////////////////////////////
+template <typename T>
+int count() 
+{
+	int counter = 0;
+	Node<T>* current = frontPtr;
+
+	while (current != nullptr)
+	{
+		counter++;
+		current = current->getNext();
+	}
+
+	return counter;
+}
+
+
+
+
 
 template <typename T>
 LinkedQueue<T>::~LinkedQueue()
