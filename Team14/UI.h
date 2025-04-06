@@ -74,8 +74,25 @@ public:
 
 	}
 
-	void printAllList(LinkedQueue<Patient*>ALLlist) {
+	void printAllList(LinkedQueue<Patient*>alllist) {
+		int count = 0;
+		LinkedQueue<Patient*>temp = alllist;
+		while (alllist.isEmpty()) {
+			Patient* garbage;
+			alllist.dequeue(garbage);
+			count++;
+		}
 		
+		cout << count << "  patients remaining: ";
+
+		if (count > 10)count = 10; //max print 10 patients
+
+		for (int i = 0; i < count; i++) {
+			Patient* tempPatient;
+			temp.dequeue(tempPatient);
+			cout << "P" << tempPatient->getId() << "_" << tempPatient->getVT() << ",";
+		}
+		cout << ".....\n";
 	}
 	void printWaitinglists() {
 

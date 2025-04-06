@@ -31,7 +31,7 @@ public:
 		
 		
 		priNode<Patient*>* prev = nullptr;
-
+		current = head;
 		//go to that random patient
 		for (int i = 0; i < index; i++) {
 			prev = current;
