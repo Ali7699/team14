@@ -138,7 +138,7 @@ bool Scheduler::loadInputFile() {
 
 
 void Scheduler::Simulation() {
-
+	
 }
 
 
@@ -165,7 +165,15 @@ bool Scheduler::cancel() {
 
 
 bool Scheduler::departAll() {
-    return false;
+	if (ALL_Patients.isEmpty())return false;
+	Patient* temp;
+	ALL_Patients.dequeue(temp);
+	temp->updateStatus(timeStep);
+	if (temp->getStatus() == Patient::LATE) {
+
+
+	}
+	return false;
 }
 
 bool Scheduler::departEarly(char destination) {
