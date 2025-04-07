@@ -164,38 +164,51 @@ bool Scheduler::cancel() {
 
 
 
-bool Scheduler::departAll() {
-	if (ALL_Patients.isEmpty())return false;
+void Scheduler::departAll() {
+	if (ALL_Patients.isEmpty())return ;
 	Patient* temp;
-	ALL_Patients.dequeue(temp);
-	temp->updateStatus(timeStep);
-	if (temp->getStatus() == Patient::LATE) {
-
-
+	
+	while (!ALL_Patients.isEmpty()) {
+		ALL_Patients.peek(temp);
+		
+		if (temp->getVT() > timeStep) {
+			break;
+			}
+		
+		ALL_Patients.dequeue(temp);
+		temp->updateStatus(timeStep);
+		if (temp->getStatus() == Patient::LATE) {
+			Late_Patients.enqueue(temp,temp->getPT());
+			return;
+		}
+		else if (temp->getStatus() == Patient::ERLY) {
+			Early_Patients.enqueue(temp, temp->getPT());
+			return;
+		}
+		
 	}
-	return false;
 }
 
-bool Scheduler::departEarly(char destination) {
+void Scheduler::departEarly(char destination) {
     return false;
 }
 
-bool Scheduler::departLate(char destination) {
+void Scheduler::departLate(char destination) {
     return false;
 }
 
-bool Scheduler::departU_Waiting() {
+void Scheduler::departU_Waiting() {
     return false;
 }
 
-bool Scheduler::departE_Waiting() {
+void Scheduler::departE_Waiting() {
     return false;
 }
 
-bool Scheduler::departX_Waiting() {
+void Scheduler::departX_Waiting() {
     return false;
 }
 
-bool Scheduler::departIn_Treatment(char destination) {
+void Scheduler::departIn_Treatment(char destination) {
     return false;
 }

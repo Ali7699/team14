@@ -4,6 +4,16 @@
 
 
 class Patient {
+public:
+	enum PatientStatus {
+		IDLE,	// (VT > current timestep)
+		ERLY,	// (VT < PT)
+		LATE,	//  PT (VT > PT)
+		WAIT,	// in waitlist
+		SERV,   // (in treatment)
+		FNSH	//finished ALL treatments
+	};
+private:
 	//patient ID
 	int PID;
 	//0 is Normal, 1 is Recovering
@@ -19,14 +29,7 @@ class Patient {
 	//pointer to resource patient may be using
 	Resource* CurrentTreatment;
 	
-	enum PatientStatus {
-		IDLE,	// (VT > current timestep)
-		ERLY,	// (VT < PT)
-		LATE,	//  PT (VT > PT)
-		WAIT,	// in waitlist
-		SERV,   // (in treatment)
-		FNSH	//finished ALL treatments
-	};
+	
 	PatientStatus Status;
 
 	LinkedQueue<Treatment*> Treatmentlist;

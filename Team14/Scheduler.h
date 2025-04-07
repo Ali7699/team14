@@ -93,19 +93,19 @@ public:
 	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
 
 	//moves from All, same for phase 1 and 2 (always dependant on PT and VT)
-	bool departAll(); 
+	void departAll();
 
 
-	bool departEarly(char destination);
+	void departEarly(char destination);
 
-	bool departLate(char destination);
+	void departLate(char destination);
 
-	bool departU_Waiting();
+	void departU_Waiting();
 
-	bool departE_Waiting();
+	void departE_Waiting();
 
-	bool departX_Waiting();
+	void departX_Waiting();
 
-	bool departIn_Treatment(char destination);
+	void departIn_Treatment(char destination);
 
 };
