@@ -16,6 +16,8 @@ class Patient {
 	int TW;	
 	// total time patient is in treatment
 	int TT;		
+	//pointer to resource patient may be using
+	Resource* CurrentTreatment;
 	
 	enum PatientStatus {
 		IDLE,	// (VT > current timestep)
@@ -31,12 +33,12 @@ class Patient {
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE) {}  
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),CurrentTreatment(nullptr) {}  
 
 	
 	//getters
 	
-	int getId(){return PID;}
+	int getId()const{return PID;}
 	bool getType() const {return Type;}
 	//gets appointment time
 	int getPT()const {return PT;}
@@ -47,7 +49,8 @@ public:
 	}
 	PatientStatus getStatus()const {return Status;}
 	
-	 
+	Resource* getCurrentTreatment()const { return CurrentTreatment; }
+
 	 //setters
 	void setPID(int id) { PID = id; }
 	// 0 = normal NP, 1 = recovering RP
@@ -58,7 +61,7 @@ public:
 	void setTreatmentList(const LinkedQueue<Treatment*>&list) {
 			Treatmentlist = list;
 	}
-
+	void setCurrentTreatment( Resource* input) { CurrentTreatment = input; }
 
 
 	//functions

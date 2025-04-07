@@ -122,30 +122,89 @@ public:
 	void printEarly(priQueue<Patient*>input) {
 		printListLine(2);
 		int count = input.count();
-
+		cout << count << " patients:";
+		Patient* garbage;
+		int garb;
+		for (int i = 0; i < count; i++) {
+			input.dequeue(garbage,garb);
+			cout << " " << garbage->getId() << ",";
+		}
+		cout << "\n";
 	}
 
-	void printLate() {
-
+	void printLate(priQueue<Patient*>input) {
+		printListLine(3);
+		int count = input.count();
+		cout << count << " patients:";
+		Patient* garbage;
+		int garb;
+		for (int i = 0; i < count; i++) {
+			input.dequeue(garbage, garb);
+			cout << " " << garbage->getId() << ",";
+		}
+		cout << "\n";
 	}
 
-	void printE() {
-
+	void printE(LinkedQueue<Resource*>input) {
+		printListLine(4);
+		int count = input.count();
+		cout << count << "  Electro device:";
+		Resource* garbage;
+	
+		for (int i = 0; i < count; i++) {
+			input.dequeue(garbage);
+			cout << " " << garbage->getID() << ",";
+		}
+		cout << "\n";
 	}
 
-	void prinU() {
+	void prinU(LinkedQueue<Resource*>input) {
+		printListLine(5);
+		int count = input.count();
+		cout << count << "  Ultra device:";
+		Resource* garbage;
 
+		for (int i = 0; i < count; i++) {
+			input.dequeue(garbage);
+			cout << " " << garbage->getID() << ",";
+		}
+		cout << "\n";
 	}
 
-	void printX() {
-
+	void printX(LinkedQueue<Resource*>input) {
+		printListLine(6);
+		int count = input.count();
+		cout << count << " rooms";
+		Resource* garbage;
+		for (int i = 0; i < count; i++) {
+			input.dequeue(garbage);
+			cout << " " <<"R"<< garbage->getID() <<"["<<garbage->getPatientCount()<<","<<garbage->getCapacity()<<"]"<<",";
+		}
+		cout << "\n";
 	}
 
-	void printInTreatment() {
-
+	void printInTreatment(priQueue<Patient*>input) {
+		printListLine(7);
+		int count = input.count();
+		cout << count << " ==>";
+		Patient* temp;
+		int garbage;
+		for (int i = 0; i < count; i++) {
+			input.dequeue(temp,garbage);
+			cout << " P" << temp->getId() << "_" << temp->getCurrentTreatment()->getType() << temp->getCurrentTreatment()->getID() << ",";
+		}
+		cout << "\n";
 	}
 
-	void printfinished() {
-
+	void printfinished(ArrayStack<Patient*>input) {
+		printListLine(8);
+		int count = input.count();
+		cout << count << " finished patients:";
+		Patient* temp;
+		for (int i = 0; i < count; i++) {
+			input.pop(temp);
+			cout << " " << temp->getId() << ",";
+		}
+		cout << "\n";
 	}
 };
