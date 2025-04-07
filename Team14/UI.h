@@ -33,7 +33,7 @@ public:
 		printfinished(Finished);
 
 		cout << "Press any key to display next timestep\n";
-		int garbage;
+		int garbage=0;
 		cin >> garbage;
 	}
 
@@ -46,17 +46,17 @@ public:
 		cout << "X = " << X << " :";
 
 			if (X < 10)
-				cout << "Early?Wait";
+				cout << "Early to Wait";
 			else if (X < 20)
-				cout << "Late?Wait (penalty)";
+				cout << "Late to Wait (penalty)";
 			else if (X < 40)
-				cout << "2 Wait?Treat";
+				cout << "2 Wait to Treat";
 			else if (X < 50)
-				cout << "Treat?Wait";
+				cout << "Treat to Wait";
 			else if (X < 60)
-				cout << "Treat?Finish";
+				cout << "Treat to Finish";
 			else if (X < 70)
-				cout << "X-Wait?Finish (cancel)";
+				cout << "X-Wait to Finish (cancel)";
 			else if (X < 80)
 				cout << "Early reschedule";
 			else

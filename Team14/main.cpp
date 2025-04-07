@@ -12,6 +12,6 @@ int main() {
 	Scheduler schedule;
 	
 	schedule.setUI(&ui);
-
+	
 	schedule.Simulation();
 };
