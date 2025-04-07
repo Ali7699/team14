@@ -23,16 +23,14 @@ Scheduler::~Scheduler() {
 }
 
 
-void Scheduler::loadInputFile() {
+bool Scheduler::loadInputFile() {
 
 	//input file must always be called input
 	//Place it in Input folder in project folder so its processed
 	std::ifstream inputfile("Input/input");
 
 	if (!inputfile) {
-		//If we cant read, call UI, tell simulation failed, and update output correctly. 
-		//this should be handeled by the loader directly, never simulation function
-	
+		return false;
 	}
 
 	std::string line;
@@ -135,7 +133,7 @@ void Scheduler::loadInputFile() {
 		}
 
 	}
-
+	return true;
 }
 
 

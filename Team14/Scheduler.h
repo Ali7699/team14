@@ -71,7 +71,7 @@ public:
 	
 	
 	// Loads Input file, intializes all data members
-	void loadInputFile();
+	bool loadInputFile();
 
 
 	//Main function (Contains simulation while loop, Calls all other functions) 
