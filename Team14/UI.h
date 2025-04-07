@@ -5,7 +5,7 @@ class UI {
 
 public:
 
-
+	//takes copies and prints
 	void printAll(
 			int timestep,int X,
 			LinkedQueue<Patient*> alllist,          
