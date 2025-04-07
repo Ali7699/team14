@@ -140,36 +140,57 @@ bool Scheduler::loadInputFile() {
 void Scheduler::Simulation() {
 	while (finishedPatients != totalPatients) {
 		updateNumbers();
+		randomWaiting();
+		departAll();
+		
 		int X = rand() % 101;
 
 		if (X < 10) {
 			// move next patient from Early to RandomWaiting
+			departEarly(rndmchar);
 		}
 		else if (X < 20) {
 			// move next patient from Late to RandomWaiting using PT + penalty time
+			departLate(rndmchar);
 		}
 		else if (X < 40) {
 			// move 2 next patients from RandomWaiting to In-treatment
+			switch (rndmchar) {
+			case 'U':
+				departU_Waiting();
+				departU_Waiting();
+			case 'E':
+				departE_Waiting();
+				departE_Waiting();
+			case 'X':
+				departX_Waiting();
+				departX_Waiting();
+
+			}
 		}
 		else if (X < 50) {
 			// move next patient from In-treatment to RandomWaiting
+			departIn_Treatment(rndmchar);
 		}
 		else if (X < 60) {
 			// move next patient from In-treatment to Finish
+			departIn_Treatment('F');
 		}
 		else if (X < 70) {
 			// move random patient from X-Waiting to Finish (cancel process)
+			cancel();
 		}
 		else if (X < 80) {
 			// choose random patient from Early to appropriate list (accepted reschedule)
+			reschedule();
 		}
-
+		
 
 	}
+}
 
 
-
-char Scheduler::randomWaiting() {
+void Scheduler::randomWaiting() {
 	int randomNum = rand() % 101;
 
 	// Update rndmchar based on the random number
@@ -280,11 +301,21 @@ void Scheduler::departX_Waiting() {
 }
 
 void Scheduler::departIn_Treatment(char destination) {
+	//can go to randomwaiting or finished
 	if (In_Treatment.isEmpty())return;
 	Patient* temp;
-	int garb;
-	In_Treatment.dequeue(temp,garb);
-	Finished_patients.push(temp);
+	int garbage;
+	In_Treatment.dequeue(temp, garbage);
+	switch (destination) {
+		case 'F':
+			Finished_patients.push(temp);
+		case 'E':
+			E_Waiting.insertSorted(temp);
+		case 'U':
+			U_Waiting.insertSorted(temp);
+		case 'X':
+			X_Waiting.insertSorted(temp);
+		}
 }
 
 void Scheduler::updateNumbers() {

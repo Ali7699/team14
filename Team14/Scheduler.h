@@ -79,7 +79,7 @@ public:
 	void Simulation();
 	
 	//phase 1 function: updates rndmchar every time step. we use rndchar to detrmine destinatioons
-	char randomWaiting();
+	void randomWaiting();
 	
 	
 	
