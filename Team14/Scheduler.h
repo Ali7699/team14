@@ -80,7 +80,7 @@ public:
 	//phase 1 function: updates rndmchar every time step. we use rndchar to detrmine destinatioons
 	void randomWaiting();
 	
-	
+	void RandomWaitingPremium();
 	
 	
 	bool reschedule();

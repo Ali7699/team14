@@ -173,18 +173,13 @@ void Scheduler::Simulation() {
 		}
 		else if (X < 40) {
 			// move 2 next patients from RandomWaiting to In-treatment
-			switch (rndmchar) {
-			case 'U':
-				departU_Waiting();
-				departU_Waiting();
-			case 'E':
-				departE_Waiting();
-				departE_Waiting();
-			case 'X':
-				departX_Waiting();
-				departX_Waiting();
-
+			//the issue is, we dont know which is empty, and which is full, so we cant rely on random waiting.
+			//hence we made RandomWaitingPremium
+			
+			for (int i = 0; i < 2; i++) {
+				RandomWaitingPremium();
 			}
+
 		}
 		else if (X < 50) {
 			// move next patient from In-treatment to RandomWaiting
@@ -239,7 +234,31 @@ void Scheduler::randomWaiting() {
 	}
 }
 
+void Scheduler::RandomWaitingPremium() {
+	//terniary is way more efficent here
+	int U = (U_Waiting.count() > 0) ? 1 : 0;
+	int E = (E_Waiting.count() > 0) ? 1 : 0;
+	int X = (X_Waiting.count() > 0) ? 1 : 0;
 
+	int PossibleOptions = U + E + X;
+
+	if (PossibleOptions == 0) {
+		return; 
+	}
+
+	int choice = rand() % PossibleOptions;
+
+	
+	if (U && choice == 0) {
+		departU_Waiting();
+	}
+	else if (E && (choice == 1 || (U == 0 && choice == 0))) {
+		departE_Waiting();
+	}
+	else if (X && (choice == 2 || (U + E == 0 && choice == 0))) {
+		departX_Waiting();
+	}
+}
 
 bool Scheduler::reschedule() {
 	bool x = Early_Patients.Reschedule();
