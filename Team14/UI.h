@@ -21,8 +21,9 @@ public:
 		priQueue<Patient*>& InTreatment,
 		ArrayStack<Patient*>& Finished
 	) {
-		printNumbers(timestep,X); 
+		system("cls");
 
+		printNumbers(timestep,X); 
 		printAllList(alllist);
 		printWaitinglists(U_Waitlist, E_Waitlist, X_Waitlist);
 		printEarly(EarlyList);
@@ -32,34 +33,32 @@ public:
 		printX(AvailX);
 		printInTreatment(InTreatment);
 		printfinished(Finished);
-
-		cout << "Press any key to display next timestep\n";
-		int garbage=0;
-		cin >> garbage;
+		
+		system("pause");
 	}
 
 
 	void printNumbers(int timestep,int X) {
 		
-		cout << "Current Timestep: " << timestep;
+		cout << "Current Timestep:" << timestep;
 		
 		
-		cout << "X = " << X << " :";
+		cout << " X=" << X << " Current task: ";
 
 			if (X < 10)
-				cout << "Early to Wait";
+				cout << "Move from Early to Wait";
 			else if (X < 20)
-				cout << "Late to Wait (penalty)";
+				cout << "Move from Late to Wait (penalty)";
 			else if (X < 40)
-				cout << "2 Wait to Treat";
+				cout << "Move 2 from Wait to Treat";
 			else if (X < 50)
-				cout << "Treat to Wait";
+				cout << "Move from Treat to Wait";
 			else if (X < 60)
-				cout << "Treat to Finish";
+				cout << "Move from Treat to Finish";
 			else if (X < 70)
-				cout << "X-Wait to Finish (cancel)";
+				cout << "Move from X-Wait to Finish (cancel)";
 			else if (X < 80)
-				cout << "Early reschedule";
+				cout << "Move from Early reschedule";
 			else
 				cout << "No action";
 			cout << "\n";
@@ -242,10 +241,10 @@ public:
 		int garbage;
 		for (int i = 0; i < count; i++) {
 			input.dequeue(temp,garbage);
-			cout << " P" << temp->getId() << "_" << temp->getCurrentTreatment()->getType() << temp->getCurrentTreatment()->getID() << ",";
+			cout << " P" << temp->getId() << "_" << ",";
 			input.enqueue(temp,garbage);
 		}
-		cout << "\n";
+		cout << "patients treatments not implmented \n";
 	}
 
 	void printfinished(ArrayStack<Patient*>& input) {

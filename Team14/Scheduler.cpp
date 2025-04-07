@@ -272,11 +272,9 @@ void Scheduler::departAll() {
 		temp->updateStatus(timeStep);
 		if (temp->getStatus() == Patient::LATE) {
 			Late_Patients.enqueue(temp,temp->getPT());
-			return;
 		}
 		else if (temp->getStatus() == Patient::ERLY) {
 			Early_Patients.enqueue(temp, temp->getPT());
-			return;
 		}
 		
 	}
@@ -290,10 +288,13 @@ void Scheduler::departEarly(char destination) {
 	switch (destination) {
 	case 'E':
 		E_Waiting.enqueue(temp);
+		break;
 	case 'U':
 		U_Waiting.enqueue(temp);
+		break;
 	case 'X':
 		X_Waiting.enqueue(temp);
+		break;
 	}
 
 }
@@ -306,10 +307,13 @@ void Scheduler::departLate(char destination) {
 	switch (destination) {
 	case 'E':
 		E_Waiting.insertSorted(temp,false);
+		break;
 	case 'U':
 		U_Waiting.insertSorted(temp, false);
+		break;
 	case 'X':
 		X_Waiting.insertSorted(temp, false);
+		break;
 	}
 }
 
@@ -343,12 +347,16 @@ void Scheduler::departIn_Treatment(char destination) {
 	switch (destination) {
 		case 'F':
 			Finished_patients.push(temp);
+			break;
 		case 'E':
 			E_Waiting.insertSorted(temp);
+			break;
 		case 'U':
 			U_Waiting.insertSorted(temp);
+			break;
 		case 'X':
 			X_Waiting.insertSorted(temp);
+			break;
 		}
 }
 
