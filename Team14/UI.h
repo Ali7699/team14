@@ -34,7 +34,7 @@ public:
 
 		cout << "Press any key to display next timestep\n";
 		int garbage;
-		std::cin >> garbage;
+		cin >> garbage;
 	}
 
 
