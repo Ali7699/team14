@@ -259,9 +259,10 @@ bool Scheduler::cancel() {
 
 void Scheduler::departAll() {
 	if (ALL_Patients.isEmpty())return ;
-	Patient* temp;
+	
 	
 	while (!ALL_Patients.isEmpty()) {
+		Patient* temp;
 		ALL_Patients.peek(temp);
 		
 		if (temp->getVT() > timeStep) {
@@ -271,7 +272,7 @@ void Scheduler::departAll() {
 		ALL_Patients.dequeue(temp);
 		temp->updateStatus(timeStep);
 		if (temp->getStatus() == Patient::LATE) {
-			Late_Patients.enqueue(temp,temp->getPT());
+			Late_Patients.enqueue(temp,temp->getPT()+temp->getPenalty());
 		}
 		else if (temp->getStatus() == Patient::ERLY) {
 			Early_Patients.enqueue(temp, temp->getPT());

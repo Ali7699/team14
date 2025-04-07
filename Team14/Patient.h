@@ -22,7 +22,9 @@ private:
 	int PT;	
 	//	arriVal Time
 	int VT;	
-	//	total waiting time
+	
+	int penalty;
+
 	int TW;	
 	// total time patient is in treatment
 	int TT;		
@@ -36,7 +38,9 @@ private:
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),CurrentTreatment(nullptr) {}  
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),CurrentTreatment(nullptr) {
+		penalty = ((VT - PT) / 2);
+	}  
 
 	
 	//getters
@@ -47,6 +51,8 @@ public:
 	int getPT()const {return PT;}
 	//gets arrival time
 	int getVT()const {return VT;}
+	
+	int getPenalty()const { return penalty; }
 	LinkedQueue<Treatment*> getTreatmentlist() const {
 		return Treatmentlist;
 	}
@@ -54,6 +60,7 @@ public:
 	
 	Resource* getCurrentTreatment()const { return CurrentTreatment; }
 
+	
 	 //setters
 	void setPID(int id) { PID = id; }
 	// 0 = normal NP, 1 = recovering RP
@@ -79,7 +86,6 @@ public:
 			Status = LATE;
 		}
 	}
-
 
 	void addTreatment(Treatment* t) {
 	//we always enque normally, RP logic handeled later

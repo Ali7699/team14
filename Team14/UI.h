@@ -149,10 +149,11 @@ public:
 		for (int i = 0; i < count; i++) {
 			Patient* tempPatient;
 			alllist.dequeue(tempPatient);
+			alllist.enqueue(tempPatient);
 			if (i < 11) { //only print first 10, but enque all
 				cout << "P" << tempPatient->getId() << "_" << tempPatient->getVT() << ",";
 			}
-			alllist.enqueue(tempPatient);
+			
 		}
 		cout << ".....\n";
 	}
@@ -168,13 +169,21 @@ public:
 		printListLine(2);
 		int count = input.count();
 		cout << count << " patients:";
-		Patient* garbage;
+		LinkedQueue<Patient*> storage;
+
 		int garb;
 		for (int i = 0; i < count; i++) {
+			Patient* garbage;
 			input.dequeue(garbage,garb);
 			cout << " " << garbage->getId() << ",";
-			input.enqueue(garbage, garb);
+			storage.enqueue(garbage);
 		}
+		for (int i = 0; i < count; i++) {
+			Patient* garbage;
+			storage.dequeue(garbage);
+			input.enqueue(garbage,garbage->getPT());
+		}
+
 		cout << "\n";
 	}
 
@@ -182,12 +191,19 @@ public:
 		printListLine(3);
 		int count = input.count();
 		cout << count << " patients:";
-		Patient* garbage;
+		LinkedQueue<Patient*> storage;
+
 		int garb;
 		for (int i = 0; i < count; i++) {
+			Patient* garbage;
 			input.dequeue(garbage, garb);
 			cout << " " << garbage->getId() << ",";
-			input.enqueue(garbage, garb);
+			storage.enqueue(garbage);
+		}
+		for (int i = 0; i < count; i++) {
+			Patient* garbage;
+			storage.dequeue(garbage);
+			input.enqueue(garbage, garbage->getPT()+garbage->getPenalty());
 		}
 		cout << "\n";
 	}
@@ -244,7 +260,7 @@ public:
 			cout << " P" << temp->getId() << "_" << ",";
 			input.enqueue(temp,garbage);
 		}
-		cout << "patients treatments not implmented \n";
+		cout << "\n";
 	}
 
 	void printfinished(ArrayStack<Patient*>& input) {
