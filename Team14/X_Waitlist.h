@@ -22,7 +22,8 @@ public:
 			Patient*TempPatient=current->getItem();
 			
 			//getTreatmentList returns a copy, so we are free to abuse TempTreatmentList
-			LinkedQueue<Treatment*> TempTreatmentList=TempPatient->getTreatmentlist();
+			LinkedQueue<Treatment*> TempTreatmentList;
+			TempPatient->getTreatmentlist(TempTreatmentList);
 			
 			
 			int treatmentcount=0;

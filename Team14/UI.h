@@ -34,7 +34,7 @@ public:
 		printInTreatment(InTreatment);
 		printfinished(Finished);
 		
-		system("pause");
+		
 	}
 
 

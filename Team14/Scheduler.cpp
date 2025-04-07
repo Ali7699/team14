@@ -271,9 +271,10 @@ bool Scheduler::cancel() {
 	bool x = X_Waiting.cancel(temp);
 	if (x == true) Finished_patients.push(temp);
 
+
+
 	return x;
 }
-
 
 
 void Scheduler::departAll() {

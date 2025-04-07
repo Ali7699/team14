@@ -53,8 +53,10 @@ public:
 	int getVT()const {return VT;}
 	
 	int getPenalty()const { return penalty; }
-	LinkedQueue<Treatment*> getTreatmentlist() const {
-		return Treatmentlist;
+	
+	//this takes a refrence, not a copy and must be used carefully
+	void getTreatmentlist(LinkedQueue<Treatment*>&input) {
+		input = Treatmentlist;
 	}
 	PatientStatus getStatus()const {return Status;}
 	
