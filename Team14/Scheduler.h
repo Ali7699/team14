@@ -53,7 +53,6 @@ private:
 	int Presc;
 
 	//random variable X
-	int X;
 
 	//current random Waiting List, can be E, U, or X
 	//it is phase 1 exclusive as is Randomwaiting function

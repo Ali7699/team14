@@ -1,9 +1,9 @@
 #pragma once
 #include "Scheduler.h"
-
+#include "UI.h"
 
 Scheduler::Scheduler()
-	: timeStep(0), totalPatients(0), finishedPatients(0), X(0), rndmchar('E'),Pcancel(0),Presc(0) {
+	: timeStep(0), totalPatients(0), finishedPatients(0), rndmchar('E'),Pcancel(0),Presc(0) {
 }
 
 
@@ -185,7 +185,23 @@ void Scheduler::Simulation() {
 			reschedule();
 		}
 		
-
+		if (ui) {
+			ui->printAll(
+				timeStep,                // timestep
+				X,                       // X
+				ALL_Patients,            // alllist
+				U_Waiting,               // U_Waitlist
+				E_Waiting,               // E_Waitlist
+				X_Waiting,               // X_Waitlist
+				Early_Patients,          // EarlyList
+				Late_Patients,           // LateList
+				E_Devices,               // AvailE
+				U_Devices,               // AvailU
+				X_Rooms,                 // AvailX
+				In_Treatment,            // InTreatment
+				Finished_patients        // Finished
+			);
+		}
 	}
 }
 
