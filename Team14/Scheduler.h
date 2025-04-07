@@ -74,11 +74,12 @@ public:
 	bool loadInputFile();
 
 
-	//Main function (Contains simulation while loop, Calls all other functions) 
+	//Main function (Contains simulation while loop, Calls all other functions) this function diffres m from phase 1 to 2, 
+	//phase 1 we just do a switch case for data memeber X
 	void Simulation();
 	
-	//phase 1 function: updates rndmchar
-	void randomWaiting();
+	//phase 1 function: updates rndmchar every time step. we use rndchar to detrmine destinatioons
+	char randomWaiting();
 	
 	
 	
@@ -108,4 +109,6 @@ public:
 
 	void departIn_Treatment(char destination);
 
+	//helpers
+	void updateNumbers();
 };

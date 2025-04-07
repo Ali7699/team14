@@ -138,12 +138,50 @@ bool Scheduler::loadInputFile() {
 
 
 void Scheduler::Simulation() {
-	
-}
+	while (finishedPatients != totalPatients) {
+		updateNumbers();
+		int X = rand() % 101;
+
+		if (X < 10) {
+			// move next patient from Early to RandomWaiting
+		}
+		else if (X < 20) {
+			// move next patient from Late to RandomWaiting using PT + penalty time
+		}
+		else if (X < 40) {
+			// move 2 next patients from RandomWaiting to In-treatment
+		}
+		else if (X < 50) {
+			// move next patient from In-treatment to RandomWaiting
+		}
+		else if (X < 60) {
+			// move next patient from In-treatment to Finish
+		}
+		else if (X < 70) {
+			// move random patient from X-Waiting to Finish (cancel process)
+		}
+		else if (X < 80) {
+			// choose random patient from Early to appropriate list (accepted reschedule)
+		}
 
 
-void Scheduler::randomWaiting() {
+	}
 
+
+
+char Scheduler::randomWaiting() {
+	int randomNum = rand() % 101;
+
+	// Update rndmchar based on the random number
+	if (randomNum < 33) {
+		rndmchar = 'E';
+	}
+	else if (randomNum < 66) {
+		rndmchar = 'U';
+	}
+	else {
+		rndmchar = 'X';
+	}
 }
 
 
@@ -190,25 +228,66 @@ void Scheduler::departAll() {
 }
 
 void Scheduler::departEarly(char destination) {
-    return false;
+	if (Early_Patients.isEmpty())return;
+	Patient* temp;
+	int garbage;
+	Early_Patients.dequeue(temp,garbage);
+	switch (destination) {
+	case 'E':
+		E_Waiting.enqueue(temp);
+	case 'U':
+		U_Waiting.enqueue(temp);
+	case 'X':
+		X_Waiting.enqueue(temp);
+	}
+
 }
 
 void Scheduler::departLate(char destination) {
-    return false;
+	if (Late_Patients.isEmpty())return;
+	Patient* temp;
+	int garbage;
+	Late_Patients.dequeue(temp, garbage);
+	switch (destination) {
+	case 'E':
+		E_Waiting.insertSorted(temp,false);
+	case 'U':
+		U_Waiting.insertSorted(temp, false);
+	case 'X':
+		X_Waiting.insertSorted(temp, false);
+	}
 }
 
 void Scheduler::departU_Waiting() {
-    return false;
+	if (U_Waiting.isEmpty())return;
+	Patient* temp;
+	U_Waiting.dequeue(temp);
+	In_Treatment.enqueue(temp,1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
 }
 
 void Scheduler::departE_Waiting() {
-    return false;
+	if (E_Waiting.isEmpty())return;
+	Patient* temp;
+	E_Waiting.dequeue(temp);
+	In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
 }
 
 void Scheduler::departX_Waiting() {
-    return false;
+	if (X_Waiting.isEmpty())return;
+	Patient* temp;
+	X_Waiting.dequeue(temp);
+	In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
 }
 
 void Scheduler::departIn_Treatment(char destination) {
-    return false;
+	if (In_Treatment.isEmpty())return;
+	Patient* temp;
+	int garb;
+	In_Treatment.dequeue(temp,garb);
+	Finished_patients.push(temp);
+}
+
+void Scheduler::updateNumbers() {
+	timeStep++;
+	finishedPatients = Finished_patients.count();
 }
