@@ -9,7 +9,7 @@ public:
     
 
     bool canAssign( int currentTime) override {
-
+        return false;
     }
 
     void moveToWait( Patient* patient) override {

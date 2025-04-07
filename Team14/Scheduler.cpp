@@ -202,8 +202,8 @@ void Scheduler::Simulation() {
 				Finished_patients        // Finished
 			);
 		}
+		}
 	}
-}
 
 
 void Scheduler::randomWaiting() {

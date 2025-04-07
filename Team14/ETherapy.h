@@ -7,7 +7,7 @@ public:
     ETherapy(int d) : Treatment('E', d) {}
 
     bool canAssign( int currentTime) override {
-
+        return false;
     }
 
     void moveToWait( Patient* patient) override {
