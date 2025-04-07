@@ -7,6 +7,7 @@ public:
 
 
 	void printAll(
+			int timestep,int X,
 			LinkedQueue<Patient*> alllist,          
 			EU_Waitlist U_Waitlist,                 
 			EU_Waitlist E_Waitlist,                 
@@ -19,7 +20,7 @@ public:
 			priQueue<Patient*> InTreatment,         
 			ArrayStack<Patient*> Finished           
 	) {
-		printNumbers(); 
+		printNumbers(timestep,X); 
 
 		printAllList(alllist);
 		printWaitinglists(U_Waitlist, E_Waitlist, X_Waitlist);
@@ -37,8 +38,30 @@ public:
 	}
 
 
-	void printNumbers() {
-		//this will print timestep, random variable, etc.
+	void printNumbers(int timestep,int X) {
+		
+		cout << "Current Timestep: " << timestep;
+		
+		
+		cout << "X = " << X << " :";
+
+			if (X < 10)
+				cout << "Early?Wait";
+			else if (X < 20)
+				cout << "Late?Wait (penalty)";
+			else if (X < 40)
+				cout << "2 Wait?Treat";
+			else if (X < 50)
+				cout << "Treat?Wait";
+			else if (X < 60)
+				cout << "Treat?Finish";
+			else if (X < 70)
+				cout << "X-Wait?Finish (cancel)";
+			else if (X < 80)
+				cout << "Early reschedule";
+			else
+				cout << "No action";
+			cout << "\n";
 	}
 
 	
