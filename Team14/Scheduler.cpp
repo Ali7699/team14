@@ -256,7 +256,7 @@ void Scheduler::RandomWaitingPremium() {
 		departE_Waiting();
 	}
 	else if (X && (choice == 2 || (U + E == 0 && choice == 0))) {
-		departX_Waiting();
+		departX_Waiting('T'); //always goes to treatment list when called from here
 	}
 }
 
@@ -268,12 +268,13 @@ bool Scheduler::reschedule() {
 
 bool Scheduler::cancel() {
 	Patient* temp;
-	bool x = X_Waiting.cancel(temp);
-	if (x == true) Finished_patients.push(temp);
+	//we CANNOT use cancel function as it depends on treatment logic. What if a patient has 3 treatments and theyre in X? they would never cancel. 
+	//hence we must do it manually, although cancel works fine.
+	
+	departX_Waiting('F');
 
-
-
-	return x;
+	
+	return true;
 }
 
 
@@ -352,11 +353,16 @@ void Scheduler::departE_Waiting() {
 	In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
 }
 
-void Scheduler::departX_Waiting() {
+void Scheduler::departX_Waiting(char destination) {
 	if (X_Waiting.isEmpty())return;
 	Patient* temp;
 	X_Waiting.dequeue(temp);
-	In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
+	if (destination == 'F') {
+		Finished_patients.push(temp);
+	}
+	else if (destination == 'T') {
+		In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
+	}
 }
 
 void Scheduler::departIn_Treatment(char destination) {

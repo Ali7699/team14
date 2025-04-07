@@ -104,7 +104,7 @@ public:
 
 	void departE_Waiting();
 
-	void departX_Waiting();
+	void departX_Waiting(char destination);
 
 	void departIn_Treatment(char destination);
 

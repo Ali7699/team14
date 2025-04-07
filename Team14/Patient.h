@@ -55,8 +55,8 @@ public:
 	int getPenalty()const { return penalty; }
 	
 	//this takes a refrence, not a copy and must be used carefully
-	void getTreatmentlist(LinkedQueue<Treatment*>&input) {
-		input = Treatmentlist;
+	LinkedQueue<Treatment*> getTreatmentlist() {
+		return Treatmentlist;
 	}
 	PatientStatus getStatus()const {return Status;}
 	

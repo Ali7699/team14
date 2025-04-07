@@ -22,8 +22,7 @@ public:
 			Patient*TempPatient=current->getItem();
 			
 			//getTreatmentList returns a copy, so we are free to abuse TempTreatmentList
-			LinkedQueue<Treatment*> TempTreatmentList;
-			TempPatient->getTreatmentlist(TempTreatmentList);
+			LinkedQueue<Treatment*> TempTreatmentList=TempPatient->getTreatmentlist();
 			
 			
 			int treatmentcount=0;
@@ -38,7 +37,7 @@ public:
 
 
 					}
-
+					TempTreatmentList.enqueue(Temptreatment); //we are directly editing the datamemeber list so we must restore it
 				}
 				
 
