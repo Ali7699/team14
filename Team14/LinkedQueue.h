@@ -53,7 +53,6 @@ protected :
 	Node<T>* frontPtr;
 public :
 	LinkedQueue();	
-	LinkedQueue(const LinkedQueue<T>& other);
 	bool isEmpty() const ;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
@@ -77,16 +76,7 @@ LinkedQueue<T>::LinkedQueue()
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-//deep copy constructor
-template <typename T>
-LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& other) {
-    frontPtr = backPtr = nullptr;
-    Node<T>* current = other.frontPtr;
-    while (current != nullptr) {
-        enqueue(current->getItem());  // deep copy of nodes, shallow copy of T
-        current = current->getNext();
-    }
-}
+
 
 
 

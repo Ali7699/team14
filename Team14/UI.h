@@ -7,18 +7,19 @@ public:
 
 	//takes copies and prints
 	void printAll(
-			int timestep,int X,
-			LinkedQueue<Patient*> alllist,          
-			EU_Waitlist U_Waitlist,                 
-			EU_Waitlist E_Waitlist,                 
-			X_Waitlist X_Waitlist,                  
-			priQueue<Patient*> EarlyList,           
-			priQueue<Patient*> LateList,            
-			LinkedQueue<Resource*> AvailE,          
-			LinkedQueue<Resource*> AvailU,         
-			LinkedQueue<Resource*> AvailX,         
-			priQueue<Patient*> InTreatment,         
-			ArrayStack<Patient*> Finished           
+		int timestep,
+		int X,
+		LinkedQueue<Patient*>& alllist,
+		EU_Waitlist& U_Waitlist,
+		EU_Waitlist& E_Waitlist,
+		X_Waitlist& X_Waitlist,
+		priQueue<Patient*>& EarlyList,
+		priQueue<Patient*>& LateList,
+		LinkedQueue<Resource*>& AvailE,
+		LinkedQueue<Resource*>& AvailU,
+		LinkedQueue<Resource*>& AvailX,
+		priQueue<Patient*>& InTreatment,
+		ArrayStack<Patient*>& Finished
 	) {
 		printNumbers(timestep,X); 
 
@@ -130,13 +131,14 @@ public:
 		for (int i = 0; i < count; i++) {
 			List.dequeue(garbage);
 			cout << " " << garbage->getId() << ",";
+			List.enqueue(garbage);
 		}
 		cout << "\n";
 
 	}
 
 	//print lists
-	void printAllList(LinkedQueue<Patient*>alllist) {
+	void printAllList(LinkedQueue<Patient*>& alllist) {
 		
 		printListLine(0);
 		
@@ -144,24 +146,26 @@ public:
 		
 		cout << count << "  patients remaining: ";
 
-		if (count > 10)count = 10; //max print 10 patients
 
 		for (int i = 0; i < count; i++) {
 			Patient* tempPatient;
 			alllist.dequeue(tempPatient);
-			cout << "P" << tempPatient->getId() << "_" << tempPatient->getVT() << ",";
+			if (i < 11) { //only print first 10, but enque all
+				cout << "P" << tempPatient->getId() << "_" << tempPatient->getVT() << ",";
+			}
+			alllist.enqueue(tempPatient);
 		}
 		cout << ".....\n";
 	}
 
-	void printWaitinglists(EU_Waitlist U, EU_Waitlist E, X_Waitlist X) {
+	void printWaitinglists(EU_Waitlist&U, EU_Waitlist& E, X_Waitlist& X) {
 		printListLine(1);
 		WaitingHelper(U, 'U');
 		WaitingHelper(E, 'E');
 		WaitingHelper(X, 'X');
 	}
 	
-	void printEarly(priQueue<Patient*>input) {
+	void printEarly(priQueue<Patient*>& input) {
 		printListLine(2);
 		int count = input.count();
 		cout << count << " patients:";
@@ -170,11 +174,12 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(garbage,garb);
 			cout << " " << garbage->getId() << ",";
+			input.enqueue(garbage, garb);
 		}
 		cout << "\n";
 	}
 
-	void printLate(priQueue<Patient*>input) {
+	void printLate(priQueue<Patient*>& input) {
 		printListLine(3);
 		int count = input.count();
 		cout << count << " patients:";
@@ -183,11 +188,12 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(garbage, garb);
 			cout << " " << garbage->getId() << ",";
+			input.enqueue(garbage, garb);
 		}
 		cout << "\n";
 	}
 
-	void printE(LinkedQueue<Resource*>input) {
+	void printE(LinkedQueue<Resource*>& input) {
 		printListLine(4);
 		int count = input.count();
 		cout << count << "  Electro device:";
@@ -196,11 +202,12 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(garbage);
 			cout << " " << garbage->getID() << ",";
+			input.enqueue(garbage);
 		}
 		cout << "\n";
 	}
 
-	void printU(LinkedQueue<Resource*>input) {
+	void printU(LinkedQueue<Resource*>& input) {
 		printListLine(5);
 		int count = input.count();
 		cout << count << "  Ultra device:";
@@ -209,11 +216,12 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(garbage);
 			cout << " " << garbage->getID() << ",";
+			input.enqueue(garbage);
 		}
 		cout << "\n";
 	}
 
-	void printX(LinkedQueue<Resource*>input) {
+	void printX(LinkedQueue<Resource*>& input) {
 		printListLine(6);
 		int count = input.count();
 		cout << count << " rooms";
@@ -221,11 +229,12 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(garbage);
 			cout << " " <<"R"<< garbage->getID() <<"["<<garbage->getPatientCount()<<","<<garbage->getCapacity()<<"]"<<",";
+			input.enqueue(garbage);
 		}
 		cout << "\n";
 	}
 
-	void printInTreatment(priQueue<Patient*>input) {
+	void printInTreatment(priQueue<Patient*>& input) {
 		printListLine(7);
 		int count = input.count();
 		cout << count << " ==>";
@@ -234,19 +243,27 @@ public:
 		for (int i = 0; i < count; i++) {
 			input.dequeue(temp,garbage);
 			cout << " P" << temp->getId() << "_" << temp->getCurrentTreatment()->getType() << temp->getCurrentTreatment()->getID() << ",";
+			input.enqueue(temp,garbage);
 		}
 		cout << "\n";
 	}
 
-	void printfinished(ArrayStack<Patient*>input) {
+	void printfinished(ArrayStack<Patient*>& input) {
 		printListLine(8);
 		int count = input.count();
 		cout << count << " finished patients:";
 		Patient* temp;
+		ArrayStack<Patient*>Tempstack;
 		for (int i = 0; i < count; i++) {
 			input.pop(temp);
 			cout << " " << temp->getId() << ",";
+			Tempstack.push(temp);
 		}
+		for (int i = 0; i < count; i++) {
+			Tempstack.pop(temp);
+			input.push(temp);
+		}
+
 		cout << "\n";
 	}
 };
