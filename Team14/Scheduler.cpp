@@ -139,29 +139,34 @@ bool Scheduler::loadInputFile() {
 
 void Scheduler::Simulation() {
 	loadInputFile();
-	if (ui) {
-		ui->printAll(
-			timeStep,                // timestep
-			0,                       // X
-			ALL_Patients,            // alllist
-			U_Waiting,               // U_Waitlist
-			E_Waiting,               // E_Waitlist
-			X_Waiting,               // X_Waitlist
-			Early_Patients,          // EarlyList
-			Late_Patients,           // LateList
-			E_Devices,               // AvailE
-			U_Devices,               // AvailU
-			X_Rooms,                 // AvailX
-			In_Treatment,            // InTreatment
-			Finished_patients        // Finished
-		);
-	} //print the first time
+	 //print the first time
 	while (finishedPatients != totalPatients) {
+		int X = rand() % 101;
+		
+		//print all
+		if (ui) {
+			ui->printAll(
+				timeStep,                // timestep
+				X,                       // X
+				ALL_Patients,            // alllist
+				U_Waiting,               // U_Waitlist
+				E_Waiting,               // E_Waitlist
+				X_Waiting,               // X_Waitlist
+				Early_Patients,          // EarlyList
+				Late_Patients,           // LateList
+				E_Devices,               // AvailE
+				U_Devices,               // AvailU
+				X_Rooms,                 // AvailX
+				In_Treatment,            // InTreatment
+				Finished_patients        // Finished
+			);
+		} 
+
 		updateNumbers();
 		randomWaiting();
 		departAll();
 		
-		int X = rand() % 101;
+		
 
 		if (X < 10) {
 			// move next patient from Early to RandomWaiting
@@ -198,23 +203,7 @@ void Scheduler::Simulation() {
 			reschedule();
 		}
 		
-		if (ui) {
-			ui->printAll(
-				timeStep,                // timestep
-				X,                       // X
-				ALL_Patients,            // alllist
-				U_Waiting,               // U_Waitlist
-				E_Waiting,               // E_Waitlist
-				X_Waiting,               // X_Waitlist
-				Early_Patients,          // EarlyList
-				Late_Patients,           // LateList
-				E_Devices,               // AvailE
-				U_Devices,               // AvailU
-				X_Rooms,                 // AvailX
-				In_Treatment,            // InTreatment
-				Finished_patients        // Finished
-			);
-		}
+		
 		}
 	}
 

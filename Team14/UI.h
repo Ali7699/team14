@@ -34,7 +34,7 @@ public:
 		printInTreatment(InTreatment);
 		printfinished(Finished);
 		
-		
+		system("pause");
 	}
 
 
@@ -43,7 +43,7 @@ public:
 		cout << "Current Timestep:" << timestep;
 		
 		
-		cout << " X=" << X << " Current task: ";
+		cout << " X=" << X << " Next task: ";
 
 			if (X < 10)
 				cout << "Move from Early to Wait";
