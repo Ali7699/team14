@@ -6,20 +6,39 @@ class UI {
 public:
 
 
-	void printAll() {
-		printNumbers();
+	void printAll(
+			LinkedQueue<Patient*> alllist,          
+			EU_Waitlist U_Waitlist,                 
+			EU_Waitlist E_Waitlist,                 
+			X_Waitlist X_Waitlist,                  
+			priQueue<Patient*> EarlyList,           
+			priQueue<Patient*> LateList,            
+			LinkedQueue<Resource*> AvailE,          
+			LinkedQueue<Resource*> AvailU,         
+			LinkedQueue<Resource*> AvailX,         
+			priQueue<Patient*> InTreatment,         
+			ArrayStack<Patient*> Finished           
+	) {
+		printNumbers(); 
 
-		
-		
-		
-		
+		printAllList(alllist);
+		printWaitinglists(U_Waitlist, E_Waitlist, X_Waitlist);
+		printEarly(EarlyList);
+		printLate(LateList);
+		printE(AvailE);
+		printU(AvailU);
+		printX(AvailX);
+		printInTreatment(InTreatment);
+		printfinished(Finished);
+
 		cout << "Press any key to display next timestep\n";
 		int garbage;
-		std::cin >>garbage ;
+		std::cin >> garbage;
 	}
 
-	void printNumbers() {
 
+	void printNumbers() {
+		//this will print timestep, random variable, etc.
 	}
 
 	
@@ -158,7 +177,7 @@ public:
 		cout << "\n";
 	}
 
-	void prinU(LinkedQueue<Resource*>input) {
+	void printU(LinkedQueue<Resource*>input) {
 		printListLine(5);
 		int count = input.count();
 		cout << count << "  Ultra device:";
