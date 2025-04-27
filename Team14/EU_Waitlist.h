@@ -14,22 +14,34 @@ public:
 
 		while (current != nullptr) {
 			Patient* tempPatient = current->getItem();
+			
+			//temp list is a REFRENCE to treatment list
 			LinkedQueue<Treatment*>tempList = tempPatient->getTreatmentlist();
 
 			//We cannot access templist nodes directly
 			//hence we use public features deqque and enque
-			// the max treatments is 3, we do 3 always for ease of mind
+
 			Treatment* tempTreatment;
-			for (int i = 0; i < 3; i++) {
-				
-				if (tempList.dequeue(tempTreatment)) { //must check deque success, to avoid working with unintialized temptreatment
+			
+			
+
+			int treatmentCount = tempList.count();
+
+			//we MUSt check not empty to avoid exploiting nullptr
+			if (!tempList.isEmpty()) {
+				for (int i = 0; i < treatmentCount; i++) {
+					
+					tempList.dequeue(tempTreatment);
+
 					if (tempTreatment->getType() == inputtype) {
 						treatmentLatency += tempTreatment->getDuration();
 
 					}
 					tempList.enqueue(tempTreatment);
+
 				}
 			}
+			
 			current = current->getNext();
 		}
 		return treatmentLatency; // if no treatment type found or empty, we simply return intial value 0

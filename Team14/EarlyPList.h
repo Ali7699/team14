@@ -18,19 +18,17 @@ public:
 			return false;
 		}
 		//count the number of patients
-		int count = 0;
+		int count = this->count();
+
 		priNode<Patient*>* current = head;
-		while (current != nullptr) {
-			count++;
-			current = current->getNext();
-		}
-		//reset temp head
-		current = head; 
+	
+
 		//get random patient
 		int index = std::rand() % count; 
 		
 		
 		priNode<Patient*>* prev = nullptr;
+
 		//go to that random patient
 		for (int i = 0; i < index&&current!=nullptr; i++) {
 			prev = current;

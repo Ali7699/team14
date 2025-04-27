@@ -100,7 +100,7 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="EU_Waitlist.h">
-      <Filter>ADTs\LinkedQueue</Filter>
+      <Filter>ADTs\EU Waitlist</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

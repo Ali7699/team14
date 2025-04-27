@@ -55,9 +55,11 @@ public:
 	int getPenalty()const { return penalty; }
 	
 	//this takes a refrence, not a copy and must be used carefully
-	LinkedQueue<Treatment*> getTreatmentlist() {
+	LinkedQueue<Treatment*>& getTreatmentlist() {
 		return Treatmentlist;
 	}
+
+
 	PatientStatus getStatus()const {return Status;}
 	
 	Resource* getCurrentTreatment()const { return CurrentTreatment; }
