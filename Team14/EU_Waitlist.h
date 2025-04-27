@@ -16,7 +16,7 @@ public:
 			Patient* tempPatient = current->getItem();
 			
 			//temp list is a REFRENCE to treatment list
-			LinkedQueue<Treatment*>tempList = tempPatient->getTreatmentlist();
+			LinkedQueue<Treatment*>&tempList = tempPatient->getTreatmentlist();
 
 			//We cannot access templist nodes directly
 			//hence we use public features deqque and enque

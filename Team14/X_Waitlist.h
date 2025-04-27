@@ -21,34 +21,34 @@ public:
 		while (current!= nullptr) {
 			Patient*TempPatient=current->getItem();
 			
-			//getTreatmentList returns a copy, so we are free to abuse TempTreatmentList
-			LinkedQueue<Treatment*> TempTreatmentList=TempPatient->getTreatmentlist();
+			//THIS RETURNS A REFRENCE
+			LinkedQueue<Treatment*> &TempTreatmentList=TempPatient->getTreatmentlist();
 			
 			
-			int treatmentcount=0;
 			bool Xchecker=false;
 
-			for (int i = 0; i < 3; i++) {
-				Treatment* Temptreatment;
-				if (TempTreatmentList.dequeue(Temptreatment)) {//if we successfully deque
-					treatmentcount++;
+			int count = TempTreatmentList.count();
+			//avoids nullptr abuse
+			if (!TempTreatmentList.isEmpty()) {
+				for (int i = 0; i < count; i++) {
+					Treatment* Temptreatment;
+					TempTreatmentList.dequeue(Temptreatment); //if we successfully deque
 					if (Temptreatment->getType() == 'X') {
-						 Xchecker = true;
-
+							Xchecker = true;
 
 					}
 					TempTreatmentList.enqueue(Temptreatment); //we are directly editing the datamemeber list so we must restore it
+
+
 				}
-				
 
+				if (Xchecker && (count == 1)) {
+					//we now effectively checked if the patient has X ANDDD its his last treatment
+					//so we can store the patient
+					Arr[index] = TempPatient;
+					index++;
+				}
 			}
-			if (Xchecker && (treatmentcount == 1)) {
-				//we now effectively checked if the patient has X and its his last treatment
-				//so we can store the patient
-				Arr[index] = TempPatient;
-				index++;
-			}
-
 			current = current->getNext();
 		}
 		
