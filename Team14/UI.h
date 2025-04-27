@@ -253,13 +253,26 @@ public:
 		printListLine(7);
 		int count = input.count();
 		cout << count << " ==>";
+		
+		
+		//we must store priority for easiest implementation
+
+		int pri[200];
 		Patient* temp;
-		int garbage;
+		LinkedQueue<Patient*> storage;
+
 		for (int i = 0; i < count; i++) {
-			input.dequeue(temp,garbage);
-			cout << " P" << temp->getId() << "_" << ",";
-			input.enqueue(temp,garbage);
+			Patient* garbage;
+			input.dequeue(garbage, pri[i]);
+			cout << " " << garbage->getId() << ",";
+			storage.enqueue(garbage);
 		}
+		for (int i = 0; i < count; i++) {
+			Patient* garbage;
+			storage.dequeue(garbage);
+			input.enqueue(garbage, pri[i]);
+		}
+
 		cout << "\n";
 	}
 
