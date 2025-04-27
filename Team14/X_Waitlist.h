@@ -67,6 +67,7 @@ public:
 
 		Node<Patient*>* prev = nullptr;
 		current = frontPtr;
+		
 		while (current != nullptr) {
 			if (current->getItem() == ChosenPatient) {
 				if (prev == nullptr) {
