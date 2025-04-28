@@ -100,7 +100,7 @@ public:
 
 	void departEarly();
 
-	void departLate(char destination);
+	void departLate();
 
 	void departU_Waiting();
 

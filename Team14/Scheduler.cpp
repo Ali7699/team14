@@ -394,29 +394,38 @@ void Scheduler::departEarly() {
 			//end loop if PT is not now
 			break;
 		}
-
-
-
-
 	}
 
 }
 
-void Scheduler::departLate(char destination) {
-	if (Late_Patients.isEmpty())return;
-	Patient* temp;
-	int garbage;
-	Late_Patients.dequeue(temp, garbage);
-	switch (destination) {
-	case 'E':
-		E_Waiting.insertSorted(temp,false);
-		break;
-	case 'U':
-		U_Waiting.insertSorted(temp, false);
-		break;
-	case 'X':
-		X_Waiting.insertSorted(temp, false);
-		break;
+void Scheduler::departLate() {
+	while (!Late_Patients.isEmpty()) {
+		Patient* Temp;
+		int PT;
+		Late_Patients.peek(Temp, PT);
+
+		//if PT is now, we deque 
+		// defensive programming: if timestep is bigger we still move them (in case we missed patient from last timestep)
+		//else break and return
+		if (PT <= timeStep) {
+			Early_Patients.dequeue(Temp, PT);
+			organizeTreatmentList(Temp);
+
+			char Next = Temp->getNextTreatment();
+
+			if (Next == 'E') {
+				E_Waiting.insertSorted(Temp,false);
+			}
+			else if (Next == 'U') {
+				U_Waiting.insertSorted(Temp, false);
+			}
+			else if (Next == 'X')
+				X_Waiting.insertSorted(Temp, false);
+		}
+		else {
+			//end loop if PT is not now
+			break;
+		}
 	}
 }
 
