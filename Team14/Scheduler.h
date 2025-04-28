@@ -82,6 +82,8 @@ public:
 	
 	void RandomWaitingPremium();
 	
+	//this helper goes through treatment list of any patient, identifies if Recovering, and organizes treatment list according to current latency
+	void organizeTreatmentList(Patient*);
 	
 	bool reschedule();
 
@@ -96,7 +98,7 @@ public:
 	void departAll();
 
 
-	void departEarly(char destination);
+	void departEarly();
 
 	void departLate(char destination);
 

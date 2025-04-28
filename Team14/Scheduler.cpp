@@ -249,6 +249,81 @@ void Scheduler::RandomWaitingPremium() {
 	}
 }
 
+
+void Scheduler::organizeTreatmentList(Patient*input)
+{
+	//if normal, ignore
+	if (input->getType() == 0)
+		return;
+
+	LinkedQueue<Treatment*>& Temp = input->getTreatmentlist();
+	int count = Temp.count();
+
+	if (Temp.isEmpty()) {
+		return;
+	}
+	
+
+	//now get latencys , we store in arr for easy sort
+	typedef struct {
+		int latency;
+		char type;
+	} Latency;
+
+	Latency arr[3];
+
+	//We no sort latencys
+	{
+		arr[0].type = 'E';
+		arr[0].latency = E_Waiting.calcTreatmentLatency('E');
+
+		arr[1].type = 'U';
+		arr[1].latency = U_Waiting.calcTreatmentLatency('U');
+
+		arr[2].type = 'X';
+		arr[2].latency = X_Waiting.calcTreatmentLatency('X');
+
+		//hardcoded sort, more efficent since we only ever have 3 elements
+
+		if (arr[0].latency > arr[1].latency) {
+			Latency temp = arr[0];
+			arr[0] = arr[1];
+			arr[1] = temp;
+		}
+		if (arr[1].latency > arr[2].latency) {
+			Latency temp = arr[1];
+			arr[1] = arr[2];
+			arr[2] = temp;
+		}
+		if (arr[0].latency > arr[1].latency) {
+			Latency temp = arr[0];
+			arr[0] = arr[1];
+			arr[1] = temp;
+		}
+
+	}
+	
+	Treatment* treatments[3] = { nullptr, nullptr, nullptr };
+	for (int i = 0; i < count; ++i) {
+		 Temp.dequeue(treatments[i]); // Remove from queue and store in arr for easy access
+	}
+
+	// Reorder based on latency order
+	//arr[0] has lowest latency, so we look for treatments from that type then 1 then 2. 
+	for (int i = 0; i < 3; ++i) {
+		for (int j = 0; j < count; ++j) {
+			if (treatments[j] && treatments[j]->getType() == arr[i].type) {
+				Temp.enqueue(treatments[j]); 
+				treatments[j] = nullptr;    
+				break;                      
+			}
+		}
+	}
+}
+
+
+	
+
 bool Scheduler::reschedule() {
 	bool x = Early_Patients.Reschedule();
 	return x;
@@ -291,21 +366,33 @@ void Scheduler::departAll() {
 	}
 }
 
-void Scheduler::departEarly(char destination) {
-	if (Early_Patients.isEmpty())return;
-	Patient* temp;
-	int garbage;
-	Early_Patients.dequeue(temp,garbage);
-	switch (destination) {
-	case 'E':
-		E_Waiting.enqueue(temp);
-		break;
-	case 'U':
-		U_Waiting.enqueue(temp);
-		break;
-	case 'X':
-		X_Waiting.enqueue(temp);
-		break;
+void Scheduler::departEarly() {
+	while (!Early_Patients.isEmpty()) {
+		Patient* Temp;
+		int PT;
+		Early_Patients.peek(Temp, PT);
+		
+		//if PT is now, we deque 
+		//else break and return
+		if (PT == timeStep) {
+			Early_Patients.dequeue(Temp, PT);
+			organizeTreatmentList(Temp);
+
+			char Next=Temp->getNextTreatment();
+			 
+			if (Next == 'E') {
+				E_Waiting.enqueue(Temp);
+			}
+			else if (Next == 'U') {
+				U_Waiting.enqueue(Temp);
+			}
+
+
+		}
+
+
+
+
 	}
 
 }

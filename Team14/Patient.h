@@ -46,6 +46,8 @@ public:
 	//getters
 	
 	int getId()const{return PID;}
+	
+	//0 is normal, 1 is Recovering
 	bool getType() const {return Type;}
 	//gets appointment time
 	int getPT()const {return PT;}
@@ -53,6 +55,13 @@ public:
 	int getVT()const {return VT;}
 	
 	int getPenalty()const { return penalty; }
+
+	//returns the type of the first element of the treatment list
+	char getNextTreatment() {
+		Treatment* temp;
+		Treatmentlist.peek(temp);
+		return temp->getType();
+	}
 	
 	//this takes a refrence, not a copy and must be used carefully
 	LinkedQueue<Treatment*>& getTreatmentlist() {

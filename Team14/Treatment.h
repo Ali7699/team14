@@ -34,6 +34,8 @@ public:
 
 
     // getters
+
+    //Type can only be strictly E, U or X
     char getType() const { return type; }
     int getDuration() const { return duration; }
     int getAT() const { return ST; }
