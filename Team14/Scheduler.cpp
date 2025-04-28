@@ -373,8 +373,9 @@ void Scheduler::departEarly() {
 		Early_Patients.peek(Temp, PT);
 		
 		//if PT is now, we deque 
+		// defensive programming: if timestep is bigger we still move them
 		//else break and return
-		if (PT == timeStep) {
+		if (PT <= timeStep) {
 			Early_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
@@ -386,8 +387,12 @@ void Scheduler::departEarly() {
 			else if (Next == 'U') {
 				U_Waiting.enqueue(Temp);
 			}
-
-
+			else if (Next == 'X')
+				X_Waiting.enqueue(Temp);
+		}
+		else {
+			//end loop if PT is not now
+			break;
 		}
 
 
