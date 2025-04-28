@@ -56,7 +56,7 @@ private:
 
 	//current random Waiting List, can be E, U, or X
 	//it is phase 1 exclusive as is Randomwaiting function
-	char rndmchar;
+	
 
 public:
 	// constructor
@@ -77,17 +77,14 @@ public:
 	//phase 1 we just do a switch case for data memeber X
 	void Simulation();
 	
-	//phase 1 function: updates rndmchar every time step. we use rndchar to detrmine destinatioons
-	void randomWaiting();
 	
-	void RandomWaitingPremium();
 	
 	//this helper goes through treatment list of any patient, identifies if Recovering, and organizes treatment list according to current latency
 	void organizeTreatmentList(Patient*);
 	
-	bool reschedule();
+	bool reschedule(int x);
 
-	bool cancel();
+	bool cancel(int x);
 	
 	
 	//3.List departers. these move from a specific list to some location

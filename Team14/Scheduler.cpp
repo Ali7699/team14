@@ -3,7 +3,7 @@
 #include "UI.h"
 
 Scheduler::Scheduler()
-	: timeStep(0), totalPatients(0), finishedPatients(0), rndmchar('E'),Pcancel(0),Presc(0) {
+	: timeStep(0), totalPatients(0), finishedPatients(0),Pcancel(0),Presc(0) {
 }
 
 
@@ -142,7 +142,7 @@ void Scheduler::Simulation() {
 	 //print the first time
 	while (finishedPatients != totalPatients) {
 		int X = rand() % 101;
-		
+
 		//print all
 		if (ui) {
 			ui->printAll(
@@ -160,94 +160,25 @@ void Scheduler::Simulation() {
 				In_Treatment,            // InTreatment
 				Finished_patients        // Finished
 			);
-		} 
+		}
 
 		updateNumbers();
-		randomWaiting();
 		departAll();
-		
-		
-
-		if (X < 10) {
-			// move next patient from Early to RandomWaiting
-			departEarly(rndmchar);
-		}
-		else if (X < 20) {
-			// move next patient from Late to RandomWaiting using PT + penalty time
-			departLate(rndmchar);
-		}
-		else if (X < 40) {
-			// move 2 next patients from RandomWaiting to In-treatment
-			//the issue is, we dont know which is empty, and which is full, so we cant rely on random waiting.
-			//hence we made RandomWaitingPremium
-			
-			for (int i = 0; i < 2; i++) {
-				RandomWaitingPremium();
-			}
-
-		}
-		else if (X < 50) {
-			// move next patient from In-treatment to RandomWaiting
-			departIn_Treatment(rndmchar);
-		}
-		else if (X < 60) {
-			// move next patient from In-treatment to Finish
-			departIn_Treatment('F');
-		}
-		else if (X < 70) {
-			// move random patient from X-Waiting to Finish (cancel process)
-			cancel();
-		}
-		else if (X < 80) {
-			// choose random patient from Early to appropriate list (accepted reschedule)
-			reschedule();
-		}
-		
-		
-		}
-	}
-
-
-void Scheduler::randomWaiting() {
-	int randomNum = rand() % 101;
-
-	// Update rndmchar based on the random number
-	if (randomNum < 33) {
-		rndmchar = 'E';
-	}
-	else if (randomNum < 66) {
-		rndmchar = 'U';
-	}
-	else {
-		rndmchar = 'X';
-	}
-}
-
-void Scheduler::RandomWaitingPremium() {
-	//terniary is way more efficent here
-	int U = (U_Waiting.count() > 0) ? 1 : 0;
-	int E = (E_Waiting.count() > 0) ? 1 : 0;
-	int X = (X_Waiting.count() > 0) ? 1 : 0;
-
-	int PossibleOptions = U + E + X;
-
-	if (PossibleOptions == 0) {
-		return; 
-	}
-
-	int choice = rand() % PossibleOptions;
-
-	
-	if (U && choice == 0) {
-		departU_Waiting();
-	}
-	else if (E && (choice == 1 || (U == 0 && choice == 0))) {
+		departEarly();
+		departLate();
+		reschedule(X);
+		cancel(X);
 		departE_Waiting();
+		departU_Waiting();
+		departX_Waiting();
+		departIn_Treatment();
+		}
 	}
-	else if (X && (choice == 2 || (U + E == 0 && choice == 0))) {
-		departX_Waiting('T'); //always goes to treatment list when called from here
-	}
-}
+
+
+
+
+
 
 
 void Scheduler::organizeTreatmentList(Patient*input)
@@ -272,7 +203,7 @@ void Scheduler::organizeTreatmentList(Patient*input)
 
 	Latency arr[3];
 
-	//We no sort latencys
+	//We now sort latencys
 	{
 		arr[0].type = 'E';
 		arr[0].latency = E_Waiting.calcTreatmentLatency('E');
@@ -324,21 +255,28 @@ void Scheduler::organizeTreatmentList(Patient*input)
 
 	
 
-bool Scheduler::reschedule() {
-	bool x = Early_Patients.Reschedule();
-	return x;
+bool Scheduler::reschedule(int x) {
+	
+	bool success = false;
+	if (Presc > x) {
+		success=Early_Patients.Reschedule();
+	}
+	return success;
 
 }
 
-bool Scheduler::cancel() {
+bool Scheduler::cancel(int x) {
 	Patient* temp;
-	//we CANNOT use cancel function as it depends on treatment logic. What if a patient has 3 treatments and theyre in X? they would never cancel. 
-	//hence we must do it manually, although cancel works fine.
-	
-	departX_Waiting('F');
 
-	
-	return true;
+	if (Pcancel > x) {
+		bool success=X_Waiting.cancel(temp);
+		if (success) {
+			Finished_patients.push(temp);
+			return true;
+		}
+		
+	}
+	return false;
 }
 
 
