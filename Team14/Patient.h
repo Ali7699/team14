@@ -25,11 +25,13 @@ private:
 	
 	int penalty;
 
+
+	//total time patient is in waiting
 	int TW;	
+	
 	// total time patient is in treatment
 	int TT;		
-	//pointer to resource patient may be using
-	Resource* CurrentTreatment;
+	
 	
 	
 	PatientStatus Status;
@@ -38,7 +40,7 @@ private:
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),CurrentTreatment(nullptr) {
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE){
 		penalty = ((VT - PT) / 2);
 	}  
 
@@ -57,10 +59,10 @@ public:
 	int getPenalty()const { return penalty; }
 
 	//returns the type of the first element of the treatment list
-	char getNextTreatment() {
+	Treatment* getNextTreatment() {
 		Treatment* temp;
 		Treatmentlist.peek(temp);
-		return temp->getType();
+		return temp;
 	}
 	
 	//this takes a refrence, not a copy and must be used carefully
@@ -71,7 +73,6 @@ public:
 
 	PatientStatus getStatus()const {return Status;}
 	
-	Resource* getCurrentTreatment()const { return CurrentTreatment; }
 
 	
 	 //setters
@@ -84,7 +85,6 @@ public:
 	void setTreatmentList(const LinkedQueue<Treatment*>&list) {
 			Treatmentlist = list;
 	}
-	void setCurrentTreatment( Resource* input) { CurrentTreatment = input; }
 
 
 	//functions

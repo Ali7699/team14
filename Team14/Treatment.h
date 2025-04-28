@@ -16,11 +16,14 @@ protected:
      
     // E for E-therapy, U for U-therapy, X for X-therapy
     char type;           
-
+   
+    
+    //pointer to resource patient may be using
+    Resource* OccupiedResource;
 public:
     
     
-    Treatment(char t, int d) : type(t), duration(d), ST(-1) { } 
+    Treatment(char t, int d) : type(t), duration(d), ST(-1) ,OccupiedResource(nullptr){ } 
     
     virtual ~Treatment() {}
 
@@ -39,13 +42,20 @@ public:
     char getType() const { return type; }
     int getDuration() const { return duration; }
     int getAT() const { return ST; }
-   
+    Resource* getResource() const { return OccupiedResource; }
+
 
     // setters
     void setAT(int time) { ST = time; }
+    
+    void setResource(Resource* input) {
+        OccupiedResource = input;
+    }
+
 
     // Check if treatment is completed at current time
-    bool isCompleted(int currentTime) const {
+    
+        bool isCompleted(int currentTime) const {
         return ST != -1 && (currentTime - ST) >= duration; // if assignment time is not null and is duration has passed, return true
     }
 };

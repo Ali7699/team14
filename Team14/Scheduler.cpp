@@ -379,7 +379,7 @@ void Scheduler::departEarly() {
 			Early_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
-			char Next=Temp->getNextTreatment();
+			char Next=Temp->getNextTreatment()->getType();
 			 
 			if (Next == 'E') {
 				E_Waiting.enqueue(Temp);
@@ -411,7 +411,7 @@ void Scheduler::departLate() {
 			Early_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
-			char Next = Temp->getNextTreatment();
+			char Next = Temp->getNextTreatment()->getType();
 
 			if (Next == 'E') {
 				E_Waiting.insertSorted(Temp,false);
@@ -429,18 +429,30 @@ void Scheduler::departLate() {
 	}
 }
 
-void Scheduler::departU_Waiting() {
-	if (U_Waiting.isEmpty())return;
-	Patient* temp;
-	U_Waiting.dequeue(temp);
-	In_Treatment.enqueue(temp,1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
+void Scheduler::departE_Waiting() {
+	
+	//if  E resources isnt empty andd there is a patient waiting
+	while (!E_Devices.isEmpty()&&!E_Waiting.isEmpty()) {
+
+		Resource* Edevice;
+		Patient* Temp;
+		
+		E_Devices.dequeue(Edevice);
+		E_Waiting.dequeue(Temp);
+		Temp->getNextTreatment()->setResource(Edevice);
+
+		int finishTime = Temp->getNextTreatment()->getDuration() + timeStep;
+		//intreatment is a min que by finish time of patients
+		In_Treatment.enqueue(Temp,finishTime);
+
+
+	}
 }
 
-void Scheduler::departE_Waiting() {
-	if (E_Waiting.isEmpty())return;
-	Patient* temp;
-	E_Waiting.dequeue(temp);
-	In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
+void Scheduler::departU_Waiting() {
+	if (U_Waiting.isEmpty())
+		return;
+
 }
 
 void Scheduler::departX_Waiting(char destination) {

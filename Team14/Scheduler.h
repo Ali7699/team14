@@ -102,9 +102,9 @@ public:
 
 	void departLate();
 
-	void departU_Waiting();
-
 	void departE_Waiting();
+	
+	void departU_Waiting();
 
 	void departX_Waiting(char destination);
 
