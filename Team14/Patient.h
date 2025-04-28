@@ -24,9 +24,12 @@ private:
 	int VT;	
 	
 	int penalty;
+	
+	//this is the time a patient started waiting again after finishing a treatment
+	//Waiting Instance start
+	int WIS; //this is intially arrival time, and we update it when a patient finishes a treatment
 
-
-	//total time patient is in waiting
+	//total time patient is in waiting (any time not inTreatmentList)
 	int TW;	
 	
 	// total time patient is in treatment
@@ -40,7 +43,7 @@ private:
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE){
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0){
 		penalty = ((VT - PT) / 2);
 	}  
 
@@ -57,6 +60,10 @@ public:
 	int getVT()const {return VT;}
 	
 	int getPenalty()const { return penalty; }
+
+	int getTW()const { return TW; }
+
+	int getWIS()const { return WIS; }
 
 	//returns the type of the first element of the treatment list
 	Treatment* getNextTreatment() {
@@ -86,6 +93,7 @@ public:
 			Treatmentlist = list;
 	}
 
+	void setTW(int tw) { TW = tw; }
 
 	//functions
 	void updateStatus(int currentTime) {

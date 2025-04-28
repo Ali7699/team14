@@ -437,9 +437,19 @@ void Scheduler::departE_Waiting() {
 		Resource* Edevice;
 		Patient* Temp;
 		
+		
+
 		E_Devices.dequeue(Edevice);
 		E_Waiting.dequeue(Temp);
+		
+		//update total waiting time
+		//TW=TW+WIS+timestep
+		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+
 		Temp->getNextTreatment()->setResource(Edevice);
+		Temp->getNextTreatment()->setST(timeStep);
+
+
 
 		int finishTime = Temp->getNextTreatment()->getDuration() + timeStep;
 		//intreatment is a min que by finish time of patients
@@ -450,20 +460,65 @@ void Scheduler::departE_Waiting() {
 }
 
 void Scheduler::departU_Waiting() {
-	if (U_Waiting.isEmpty())
-		return;
+	
+	while (!U_Devices.isEmpty() && !U_Waiting.isEmpty()) {
+
+		Resource* Udevice;
+		Patient* Temp;
+
+
+
+		E_Devices.dequeue(Udevice);
+		E_Waiting.dequeue(Temp);
+
+		//update total waiting time
+		//TW=TW+WIS+timestep
+		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+
+		Temp->getNextTreatment()->setResource(Udevice);
+		Temp->getNextTreatment()->setST(timeStep);
+
+
+
+		int finishTime = Temp->getNextTreatment()->getDuration() + timeStep;
+		//intreatment is a min que by finish time of patients
+		In_Treatment.enqueue(Temp, finishTime);
+
+
+	}
 
 }
 
-void Scheduler::departX_Waiting(char destination) {
-	if (X_Waiting.isEmpty())return;
-	Patient* temp;
-	X_Waiting.dequeue(temp);
-	if (destination == 'F') {
-		Finished_patients.push(temp);
-	}
-	else if (destination == 'T') {
-		In_Treatment.enqueue(temp, 1); //finish time logic not implmented, since we move randomly. all patients have the same finish time.
+void Scheduler::departX_Waiting() {
+	while (!X_Rooms.isEmpty() && !X_Waiting.isEmpty()) {
+
+		Resource* Xroom;
+		Patient* Temp;
+
+
+		X_Rooms.peek(Xroom);
+		E_Waiting.dequeue(Temp);
+
+		//update total waiting time
+		//TW=TW+WIS+timestep
+		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+
+		Temp->getNextTreatment()->setResource(Xroom);
+		Xroom->setPatientCount(Xroom->getPatientCount()+1);
+		
+		//if its full, we deque
+		if (Xroom->getCapacity() == Xroom->getPatientCount()) {
+			X_Rooms.dequeue(Xroom);
+		}
+
+		Temp->getNextTreatment()->setST(timeStep);
+
+		int finishTime = Temp->getNextTreatment()->getDuration() + timeStep;
+		//intreatment is a min que by finish time of patients
+		In_Treatment.enqueue(Temp, finishTime);
+
+		
+
 	}
 }
 

@@ -45,12 +45,17 @@ public:
     Resource* getResource() const { return OccupiedResource; }
 
 
-    // setters
-    void setAT(int time) { ST = time; }
+    //setters
+
+    //assignment time
+    void setST(int time) { ST = time; }
     
     void setResource(Resource* input) {
         OccupiedResource = input;
     }
+
+
+
 
 
     // Check if treatment is completed at current time
