@@ -1,11 +1,6 @@
-﻿  main.cpp
-D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
-  (compiling source file 'main.cpp')
-  
-  Scheduler.cpp
+﻿  Scheduler.cpp
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
   (compiling source file 'Scheduler.cpp')
   
-  Generating Code...
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Resource.h(38,1): warning C4715: 'Resource::isFull': not all control paths return a value
   Team14.vcxproj -> D:\college\sophmore 2\data\Project\Team14PhysioTherapy\x64\Debug\Team14.exe

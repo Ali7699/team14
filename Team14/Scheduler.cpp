@@ -346,7 +346,7 @@ void Scheduler::departLate() {
 		// defensive programming: if timestep is bigger we still move them (in case we missed patient from last timestep)
 		//else break and return
 		if (PT <= timeStep) {
-			Early_Patients.dequeue(Temp, PT);
+			Late_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
 			char Next = Temp->getNextTreatment()->getType();
@@ -406,8 +406,8 @@ void Scheduler::departU_Waiting() {
 
 
 
-		E_Devices.dequeue(Udevice);
-		E_Waiting.dequeue(Temp);
+		U_Devices.dequeue(Udevice);
+		U_Waiting.dequeue(Temp);
 
 		//update total waiting time
 		//TW=TW+WIS+timestep
@@ -435,7 +435,7 @@ void Scheduler::departX_Waiting() {
 		Patient* Temp;
 		Resource* Xroom;
 		X_Rooms.peek(Xroom);
-		E_Waiting.dequeue(Temp);
+		X_Waiting.dequeue(Temp);
 		
 		//safty check is full
 		if (Xroom->isFull()) {
@@ -471,85 +471,81 @@ void Scheduler::departIn_Treatment() {
 	while (!In_Treatment.isEmpty()) {
 		Patient* Temp;
 		Treatment* FinishedTreatment;
-
-
 		int FinishTime;
 		In_Treatment.peek(Temp, FinishTime);
-		
-		if (FinishTime >= timeStep) {
+
+		// Exit the function if no treatments finish at current timestep
+		if (FinishTime > timeStep) {
 			return;
 		}
 
-		//update treatment time
-		//TT=TT+ (timeStep-ST)  (explanation: We add the time we spent in this treatment isntant to the total treatment time)
+		// Update treatment time
 		Temp->setTT(Temp->getTT() + (timeStep - Temp->getNextTreatment()->getST()));
 
+		// Return the resource based on treatment type
+		char treatmentType = Temp->getNextTreatment()->getType();
+		LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
 
-		//now we return the resource we were occupying
-
-		if (Temp->getNextTreatment()->getType() == 'X') {
-			
-			//if its an X, remeber it might still be in Xrooms que
-			//the 
+		// Handle resource return based on treatment type
+		switch (treatmentType) {
+		case 'X':
 			if (Temp->getNextTreatment()->getResource()->isFull()) {
-				// we verified its full and hence floating
-
 				X_Rooms.enqueue(Temp->getNextTreatment()->getResource());
 			}
-			//in all cases, now decrease capacity, delete treatment instance
-			Temp->getNextTreatment()->getResource()->setPatientCount(Temp->getNextTreatment()->getResource()->getPatientCount() - 1);
-			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
-			
+			Temp->getNextTreatment()->getResource()->setPatientCount(
+				Temp->getNextTreatment()->getResource()->getPatientCount() - 1);
 			tempQue.dequeue(FinishedTreatment);
-		}
-		
-		
-		else if (Temp->getNextTreatment()->getType() == 'E') {
-			
+			break;
+
+		case 'E':
 			E_Devices.enqueue(Temp->getNextTreatment()->getResource());
-
-			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
-
 			tempQue.dequeue(FinishedTreatment);
-		}
-		
-		
-		else if (Temp->getNextTreatment()->getType() == 'U'){
+			break;
+
+		case 'U':
 			U_Devices.enqueue(Temp->getNextTreatment()->getResource());
-
-			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
-
 			tempQue.dequeue(FinishedTreatment);
+			break;
 		}
 
-		//now reset the treatment que for RP
+		// Remove patient from treatment queue
+		In_Treatment.dequeue(Temp, FinishTime);
 
+		// Reorganize treatment list
 		organizeTreatmentList(Temp);
-		
-		Treatment* Next = Temp->getNextTreatment();
-		
-		//Case 1: que is empty and were done
+
+		// Check if the patient has more treatments
 		if (Temp->getTreatmentlist().isEmpty()) {
-			In_Treatment.dequeue(Temp, FinishTime);
+			// Patient has completed all treatments
 			Finished_patients.push(Temp);
 		}
-		else if (Next->getType() == 'E') {
-			In_Treatment.dequeue(Temp, FinishTime);
-			E_Waiting.insertSorted(Temp, true);
+		else {
+			// Get the next treatment type and move to appropriate waiting queue
+			Treatment* Next = Temp->getNextTreatment();
+			if (!Next) {
+				// Safety check - if getNextTreatment returns nullptr, 
+				// this could be why patients get stuck
+				Finished_patients.push(Temp);
+			}
+			else {
+				switch (Next->getType()) {
+				case 'E':
+					E_Waiting.insertSorted(Temp, true);
+					break;
+				case 'U':
+					U_Waiting.insertSorted(Temp, true);
+					break;
+				case 'X':
+					X_Waiting.insertSorted(Temp, true);
+					break;
+				default:
+					// Handle unexpected case - could be another source of the issue
+					Finished_patients.push(Temp);
+					break;
+				}
+			}
 		}
-		else if (Next->getType() == 'U') {
-			In_Treatment.dequeue(Temp, FinishTime);
-			U_Waiting.insertSorted(Temp, true);
-		}
-		else if (Next->getType() == 'X') {
-			In_Treatment.dequeue(Temp, FinishTime);
-			X_Waiting.insertSorted(Temp, true);
-		}
-
-
-
 	}
-	
 }
 
 void Scheduler::updateNumbers() {
