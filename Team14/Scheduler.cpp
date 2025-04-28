@@ -490,61 +490,132 @@ void Scheduler::departU_Waiting() {
 }
 
 void Scheduler::departX_Waiting() {
+	
 	while (!X_Rooms.isEmpty() && !X_Waiting.isEmpty()) {
 
-		Resource* Xroom;
+		
 		Patient* Temp;
-
-
+		Resource* Xroom;
 		X_Rooms.peek(Xroom);
 		E_Waiting.dequeue(Temp);
-
+		
+		//safty check is full
+		if (Xroom->isFull()) {
+			X_Rooms.dequeue(Xroom);
+			//we need to reveify Xrooms hasnt become empty as a consequnce of safety check
+			continue;
+		}
 		//update total waiting time
 		//TW=TW+WIS+timestep
 		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+		Temp->getNextTreatment()->setST(timeStep);
+
+		
+		
+
+
 
 		Temp->getNextTreatment()->setResource(Xroom);
 		Xroom->setPatientCount(Xroom->getPatientCount()+1);
-		
-		//if its full, we deque
-		if (Xroom->getCapacity() == Xroom->getPatientCount()) {
+		//Check again if the room is now full
+		if (Xroom->isFull()) {
 			X_Rooms.dequeue(Xroom);
 		}
-
-		Temp->getNextTreatment()->setST(timeStep);
 
 		int finishTime = Temp->getNextTreatment()->getDuration() + timeStep;
 		//intreatment is a min que by finish time of patients
 		In_Treatment.enqueue(Temp, finishTime);
 
-		
-
 	}
 }
 
-void Scheduler::departIn_Treatment(char destination) {
-	//can go to randomwaiting or finished
-	if (In_Treatment.isEmpty())return;
-	Patient* temp;
-	int garbage;
-	In_Treatment.dequeue(temp, garbage);
-	switch (destination) {
-		case 'F':
-			Finished_patients.push(temp);
-			break;
-		case 'E':
-			E_Waiting.insertSorted(temp);
-			break;
-		case 'U':
-			U_Waiting.insertSorted(temp);
-			break;
-		case 'X':
-			X_Waiting.insertSorted(temp);
-			break;
+void Scheduler::departIn_Treatment() {
+	while (!In_Treatment.isEmpty()) {
+		Patient* Temp;
+		Treatment* FinishedTreatment;
+
+
+		int FinishTime;
+		In_Treatment.peek(Temp, FinishTime);
+		
+		if (FinishTime >= timeStep) {
+			return;
 		}
+
+		//update treatment time
+		//TT=TT+ (timeStep-ST)  (explanation: We add the time we spent in this treatment isntant to the total treatment time)
+		Temp->setTT(Temp->getTT() + (timeStep - Temp->getNextTreatment()->getST()));
+
+
+		//now we return the resource we were occupying
+
+		if (Temp->getNextTreatment()->getType() == 'X') {
+			
+			//if its an X, remeber it might still be in Xrooms que
+			//the 
+			if (Temp->getNextTreatment()->getResource()->isFull()) {
+				// we verified its full and hence floating
+
+				X_Rooms.enqueue(Temp->getNextTreatment()->getResource());
+			}
+			//in all cases, now decrease capacity, delete treatment instance
+			Temp->getNextTreatment()->getResource()->setPatientCount(Temp->getNextTreatment()->getResource()->getPatientCount() - 1);
+			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
+			
+			tempQue.dequeue(FinishedTreatment);
+		}
+		
+		
+		else if (Temp->getNextTreatment()->getType() == 'E') {
+			
+			E_Devices.enqueue(Temp->getNextTreatment()->getResource());
+
+			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
+
+			tempQue.dequeue(FinishedTreatment);
+		}
+		
+		
+		else if (Temp->getNextTreatment()->getType() == 'U'){
+			U_Devices.enqueue(Temp->getNextTreatment()->getResource());
+
+			LinkedQueue<Treatment*>& tempQue = Temp->getTreatmentlist();
+
+			tempQue.dequeue(FinishedTreatment);
+		}
+
+		//now reset the treatment que for RP
+
+		organizeTreatmentList(Temp);
+		
+		Treatment* Next = Temp->getNextTreatment();
+		
+		//Case 1: que is empty and were done
+		if (Temp->getTreatmentlist().isEmpty()) {
+			In_Treatment.dequeue(Temp, FinishTime);
+			Finished_patients.push(Temp);
+		}
+		else if (Next->getType() == 'E') {
+			In_Treatment.dequeue(Temp, FinishTime);
+			E_Waiting.insertSorted(Temp, true);
+		}
+		else if (Next->getType() == 'U') {
+			In_Treatment.dequeue(Temp, FinishTime);
+			U_Waiting.insertSorted(Temp, true);
+		}
+		else if (Next->getType() == 'X') {
+			In_Treatment.dequeue(Temp, FinishTime);
+			X_Waiting.insertSorted(Temp, true);
+		}
+
+
+
+	}
+	
 }
 
 void Scheduler::updateNumbers() {
 	timeStep++;
 	finishedPatients = Finished_patients.count();
+
 }

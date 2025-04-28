@@ -65,7 +65,11 @@ public:
 
 	int getWIS()const { return WIS; }
 
-	//returns the type of the first element of the treatment list
+	int getTT()const { return TT; }
+
+
+
+	//returns the first element of the treatment list
 	Treatment* getNextTreatment() {
 		Treatment* temp;
 		Treatmentlist.peek(temp);
@@ -94,6 +98,7 @@ public:
 	}
 
 	void setTW(int tw) { TW = tw; }
+	void setTT(int tt) { TT = tt; }
 
 	//functions
 	void updateStatus(int currentTime) {

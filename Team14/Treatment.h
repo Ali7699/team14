@@ -41,7 +41,7 @@ public:
     //Type can only be strictly E, U or X
     char getType() const { return type; }
     int getDuration() const { return duration; }
-    int getAT() const { return ST; }
+    int getST() const { return ST; }
     Resource* getResource() const { return OccupiedResource; }
 
 

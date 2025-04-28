@@ -1,11 +1,46 @@
 ﻿  Scheduler.cpp
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
+  Treatment.cpp
   (compiling source file 'Scheduler.cpp')
   
-D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(259,11): warning C4101: 'temp': unreferenced local variable
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(173,4): error C2660: 'Scheduler::departEarly': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(101,7):
+      see declaration of 'Scheduler::departEarly'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(173,4):
+      while trying to match the argument list '(char)'
+  
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(177,4): error C2660: 'Scheduler::departLate': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(103,7):
+      see declaration of 'Scheduler::departLate'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(177,4):
+      while trying to match the argument list '(char)'
+  
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(191,4): error C2660: 'Scheduler::departIn_Treatment': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(111,7):
+      see declaration of 'Scheduler::departIn_Treatment'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(191,4):
+      while trying to match the argument list '(char)'
+  
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(195,4): error C2660: 'Scheduler::departIn_Treatment': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(111,7):
+      see declaration of 'Scheduler::departIn_Treatment'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(195,4):
+      while trying to match the argument list '(char)'
+  
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(248,3): error C2660: 'Scheduler::departX_Waiting': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(109,7):
+      see declaration of 'Scheduler::departX_Waiting'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(248,3):
+      while trying to match the argument list '(char)'
+  
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(338,2): error C2660: 'Scheduler::departX_Waiting': function does not take 1 arguments
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.h(109,7):
+      see declaration of 'Scheduler::departX_Waiting'
+      D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Scheduler.cpp(338,2):
+      while trying to match the argument list '(char)'
+  
   main.cpp
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
   (compiling source file 'main.cpp')
   
   Generating Code...
-  Team14.vcxproj -> D:\college\sophmore 2\data\Project\Team14PhysioTherapy\x64\Debug\Team14.exe

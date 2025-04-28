@@ -108,7 +108,7 @@ public:
 
 	void departX_Waiting();
 
-	void departIn_Treatment(char destination);
+	void departIn_Treatment();
 
 	//helpers
 	void updateNumbers();

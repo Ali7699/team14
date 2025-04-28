@@ -5,6 +5,7 @@ private:
     int ID;
     int capacity;
     int patientCount;
+
 public:
     Resource(char t, int id, int cap = 0, int Count = 0) : Type(t), ID(id), capacity(cap), patientCount(Count) {
         //capacity is only for gym rooms
@@ -26,5 +27,13 @@ public:
     void setId(int t) { ID = t; }
     void setPatientCount(int t) { patientCount = t; }
 
+    bool isFull() {
+        if (patientCount >= capacity) {
+            return true;
+        }
+        else if (patientCount < capacity) {
+            return false;
+        }
 
+    }
 };
