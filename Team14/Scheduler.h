@@ -8,7 +8,6 @@
 #include "Resource.h"
 #include "ArrayStack.h"
 
-#include "Treatment.h"
 
 
 #include <fstream>
@@ -19,7 +18,7 @@
 
 
 
-
+class Treatment;
 class UI;
 //forward declaration alleviates circuilar dependancy and allows ui Pointer.
 

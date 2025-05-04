@@ -5,7 +5,6 @@
 
 //including scheduler causes circular depednacy so this is safer
 class Scheduler;
-class Patient;
 
 class Treatment {
 protected:
@@ -28,10 +27,10 @@ public:
     virtual ~Treatment() {}
 
     // Virtual function to check if the required Resource is available
-    virtual bool canAssign( int currentTime) = 0;
+    virtual bool canAssign() = 0;
 
     // Virtual function to move patient to waiting list
-    virtual void moveToWait( Patient* patient) = 0;
+    virtual void moveToWait() = 0;
     
     static Treatment* createTreatment(char type, int duration);
 

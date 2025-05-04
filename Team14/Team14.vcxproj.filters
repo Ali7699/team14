@@ -46,6 +46,15 @@
     <ClCompile Include="Treatment.cpp">
       <Filter>Treatment</Filter>
     </ClCompile>
+    <ClCompile Include="UTherapy.cpp">
+      <Filter>Treatment</Filter>
+    </ClCompile>
+    <ClCompile Include="XTherapy.cpp">
+      <Filter>Treatment</Filter>
+    </ClCompile>
+    <ClCompile Include="ETherapy.cpp">
+      <Filter>Treatment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scheduler.h">

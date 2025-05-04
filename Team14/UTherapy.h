@@ -5,13 +5,9 @@ class UTherapy :public Treatment {
 
 
 public:
-    UTherapy(int d) : Treatment('U', d) {}
+    UTherapy(int d);
 
-    bool canAssign( int currentTime) override {
-        return false;
-    }
+    bool canAssign()override;
 
-    void moveToWait( Patient* patient) override {
-    
-    }
+    void moveToWait() override;
 };

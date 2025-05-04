@@ -4,13 +4,9 @@
 class ETherapy :public Treatment {
     //phase 2 implementation
 public:
-    ETherapy(int d) : Treatment('E', d) {}
+    ETherapy(int d);
 
-    bool canAssign( int currentTime) override {
-        return false;
-    }
+    bool canAssign() override;
 
-    void moveToWait( Patient* patient) override {
-
-    }
+    void moveToWait() override;
 };

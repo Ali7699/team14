@@ -1,6 +1,7 @@
 #pragma once
 #include "Scheduler.h"
 #include "UI.h"
+#include "Treatment.h"
 
 Scheduler::Scheduler()
 	: timeStep(0), totalPatients(0), finishedPatients(0),Pcancel(0),Presc(0) {
@@ -175,6 +176,8 @@ void Scheduler::Simulation() {
 		}
 	}
 
+
+
 bool Scheduler::CanAssignE()
 {
 	return false;
@@ -190,6 +193,7 @@ bool Scheduler::CanAssignX()
 	return false;
 }
 
+
 void Scheduler::AddtoE()
 {
 }
@@ -201,9 +205,6 @@ void Scheduler::AddtoU()
 void Scheduler::AddtoX()
 {
 }
-
-
-
 
 
 
@@ -280,7 +281,6 @@ void Scheduler::organizeTreatmentList(Patient*input)
 }
 
 
-	
 
 bool Scheduler::reschedule(int x) {
 	

@@ -3,7 +3,7 @@
 #include "ETherapy.h"
 #include "UTherapy.h"
 #include "XTherapy.h"
-#include "Schedule.h"
+#include "Scheduler.h"
 Treatment* Treatment::createTreatment(char type, int duration) {
     switch (type) {
     case 'X':

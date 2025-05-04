@@ -8,11 +8,7 @@ public:
 
     
 
-    bool canAssign( int currentTime) override {
-        return false;
-    }
+    bool canAssign() override;
 
-    void moveToWait( Patient* patient) override {
-
-    }
+    void moveToWait();
 };

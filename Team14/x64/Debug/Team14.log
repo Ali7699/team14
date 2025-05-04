@@ -1,6 +1,41 @@
-﻿  Scheduler.cpp
+﻿  main.cpp
+D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
+  (compiling source file 'main.cpp')
+  
+  Scheduler.cpp
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\UI.h(261,12): warning C4101: 'temp': unreferenced local variable
   (compiling source file 'Scheduler.cpp')
   
+  Treatment.cpp
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(60,13): error C3646: 'Type': unknown override specifier
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(60,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(61,13): error C3646: 'Offset': unknown override specifier
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(61,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(68,21): error C3646: 'Size': unknown override specifier
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(68,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(69,21): error C3646: 'Bandwidth': unknown override specifier
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(69,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(70,21): error C3646: 'NumberOfSchedules': unknown override specifier
+  (compiling source file 'Treatment.cpp')
+  
+D:\Windows Kits\10\Include\10.0.22621.0\um\Schedule.h(70,5): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  Generating Code...
+  (compiling source file 'Treatment.cpp')
+  
 D:\college\sophmore 2\data\Project\Team14PhysioTherapy\Team14\Resource.h(38,1): warning C4715: 'Resource::isFull': not all control paths return a value
-  Team14.vcxproj -> D:\college\sophmore 2\data\Project\Team14PhysioTherapy\x64\Debug\Team14.exe
