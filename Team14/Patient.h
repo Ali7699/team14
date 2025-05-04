@@ -69,7 +69,7 @@ public:
 
 
 
-	//returns the first element of the treatment list
+	//Peeks the first element of the treatment list
 	Treatment* getNextTreatment() {
 		Treatment* temp;
 		Treatmentlist.peek(temp);

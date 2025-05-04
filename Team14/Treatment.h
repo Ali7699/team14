@@ -31,7 +31,7 @@ public:
     // Virtual function to check if the required Resource is available
     virtual bool canAssign() = 0;
 
-    // Virtual function to move patient to waiting list
+    // Virtual function to move patient to waiting list. CASE 1: Moving from early. CASE 2: Moving from late . CASE 3: returning from intreatment
     virtual void moveToWait(Scheduler* This, Patient* input, int CASE) = 0;
     
     static Treatment* createTreatment(char type, int duration);

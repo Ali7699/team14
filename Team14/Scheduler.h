@@ -71,6 +71,7 @@ public:
 	// Loads Input file, intializes all data members
 	bool loadInputFile();
 
+	void output();
 
 	//Main function (Contains simulation while loop, Calls all other functions) this function diffres m from phase 1 to 2, 
 	//phase 1 we just do a switch case for data memeber X

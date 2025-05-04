@@ -137,6 +137,12 @@ bool Scheduler::loadInputFile() {
 	return true;
 }
 
+void Scheduler::output()
+{
+
+}
+
+
 
 void Scheduler::Simulation() {
 	loadInputFile();
@@ -359,6 +365,9 @@ void Scheduler::departAll() {
 }
 
 void Scheduler::departEarly() {
+	
+	//THIS IS CASE 1 FOR MOVING TO A WAITLIST
+
 	while (!Early_Patients.isEmpty()) {
 		Patient* Temp;
 		int PT;
@@ -371,26 +380,24 @@ void Scheduler::departEarly() {
 			Early_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
-			char Next=Temp->getNextTreatment()->getType();
+			Treatment* Next = Temp->getNextTreatment();
 			 
-			if (Next == 'E') {
-				E_Waiting.enqueue(Temp);
-			}
-			else if (Next == 'U') {
-				U_Waiting.enqueue(Temp);
-			}
-			else if (Next == 'X')
-				X_Waiting.enqueue(Temp);
+			//This is is CASE 1, hence input with int 1
+			Next->moveToWait(this, Temp, 1);
 		}
 		else {
 			//end loop if PT is not now
 			break;
 		}
+
+
 	}
 
 }
 
 void Scheduler::departLate() {
+	
+	//THIS IS STRICTLY CASE 2 : MOVING FROM LATE TO WAITLIST
 	while (!Late_Patients.isEmpty()) {
 		Patient* Temp;
 		int PT;
@@ -403,16 +410,11 @@ void Scheduler::departLate() {
 			Late_Patients.dequeue(Temp, PT);
 			organizeTreatmentList(Temp);
 
-			char Next = Temp->getNextTreatment()->getType();
+			Treatment* Next = Temp->getNextTreatment();
 
-			if (Next == 'E') {
-				E_Waiting.insertSorted(Temp,false);
-			}
-			else if (Next == 'U') {
-				U_Waiting.insertSorted(Temp, false);
-			}
-			else if (Next == 'X')
-				X_Waiting.insertSorted(Temp, false);
+			//Move to wait with case 2 
+			Next->moveToWait(this, Temp, 2);
+
 		}
 		else {
 			//end loop if PT is not now
@@ -523,10 +525,12 @@ void Scheduler::departX_Waiting() {
 
 void Scheduler::departIn_Treatment() {
 	while (!In_Treatment.isEmpty()) {
+		
 		Patient* Temp;
 		Treatment* FinishedTreatment;
 		int FinishTime;
 		In_Treatment.peek(Temp, FinishTime);
+
 
 		// Exit the function if no treatments finish at current timestep
 		if (FinishTime > timeStep) {
@@ -534,7 +538,9 @@ void Scheduler::departIn_Treatment() {
 		}
 
 		// Update treatment time
+		//explanation: 
 		Temp->setTT(Temp->getTT() + (timeStep - Temp->getNextTreatment()->getST()));
+
 
 		// Return the resource based on treatment type
 		char treatmentType = Temp->getNextTreatment()->getType();
@@ -562,6 +568,8 @@ void Scheduler::departIn_Treatment() {
 			break;
 		}
 
+
+
 		// Remove patient from treatment queue
 		In_Treatment.dequeue(Temp, FinishTime);
 
@@ -582,22 +590,10 @@ void Scheduler::departIn_Treatment() {
 				Finished_patients.push(Temp);
 			}
 			else {
-				switch (Next->getType()) {
-				case 'E':
-					E_Waiting.insertSorted(Temp, true);
-					break;
-				case 'U':
-					U_Waiting.insertSorted(Temp, true);
-					break;
-				case 'X':
-					X_Waiting.insertSorted(Temp, true);
-					break;
-				default:
-					// Handle unexpected case - could be another source of the issue
-					Finished_patients.push(Temp);
-					break;
-				}
+				//this is strictly case 3 : moving frtom in treatment to waitlist
+				Next->moveToWait(this, Temp, 3);
 			}
+
 		}
 	}
 }
