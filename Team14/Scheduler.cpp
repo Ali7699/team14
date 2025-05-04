@@ -219,14 +219,14 @@ void Scheduler::output()
 
 
 
-void Scheduler::Simulation(int input) {
+void Scheduler::Simulation(int input,bool silent) {
 	loadInputFile(input);
 	 //print the first time
 	while (finishedPatients != totalPatients) {
 		int X = rand() % 101;
 
 		//print all
-		if (ui) {
+		if (ui&&!silent) {
 			ui->printAll(
 				timeStep,                // timestep
 				X,                       // X

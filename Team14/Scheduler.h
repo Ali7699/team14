@@ -75,7 +75,7 @@ public:
 
 	//Main function (Contains simulation while loop, Calls all other functions) this function diffres m from phase 1 to 2, 
 	//phase 1 we just do a switch case for data memeber X
-	void Simulation(int inputFile);
+	void Simulation(int inputFile,bool print);
 	
 	//Addtowaiters and CanAssigners, For Treatment
 

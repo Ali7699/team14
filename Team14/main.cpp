@@ -15,7 +15,14 @@ int main() {
 	std::cout << "Choose input file";
 	int input;
 	std::cin >> input;
-	schedule.Simulation(input);
+
+	bool silent;
+	std::cout << "Silent mode? 0 for No, 1 for yes";
+	std::cin >> silent;
+	schedule.Simulation(input,silent);
+
+	schedule.output();
+
 	return 0;
 	
 	
