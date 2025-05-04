@@ -175,6 +175,33 @@ void Scheduler::Simulation() {
 		}
 	}
 
+bool Scheduler::CanAssignE()
+{
+	return false;
+}
+
+bool Scheduler::CanAssignU()
+{
+	return false;
+}
+
+bool Scheduler::CanAssignX()
+{
+	return false;
+}
+
+void Scheduler::AddtoE()
+{
+}
+
+void Scheduler::AddtoU()
+{
+}
+
+void Scheduler::AddtoX()
+{
+}
+
 
 
 

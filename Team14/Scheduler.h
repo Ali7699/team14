@@ -77,8 +77,20 @@ public:
 	//phase 1 we just do a switch case for data memeber X
 	void Simulation();
 	
-	
-	
+	//Addtowaiters and CanAssigners, For Treatment
+
+	bool CanAssignE();
+	bool CanAssignU();
+	bool CanAssignX();
+
+	void AddtoE();
+	void AddtoU();
+	void AddtoX();
+
+
+
+
+
 	//this helper goes through treatment list of any patient, identifies if Recovering, and organizes treatment list according to current latency
 	void organizeTreatmentList(Patient*);
 	
@@ -87,13 +99,14 @@ public:
 	bool cancel(int x);
 	
 	
+
+
 	//3.List departers. these move from a specific list to some location
 	//in phase 1, destination is based on random input
 	//in phase 2, destination is Based on timestep, resource availability, and Treatment list
 
 	//moves from All, same for phase 1 and 2 (always dependant on PT and VT)
 	void departAll();
-
 
 	void departEarly();
 
