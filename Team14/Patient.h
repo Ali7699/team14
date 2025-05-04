@@ -44,7 +44,9 @@ private:
 public:
 	Patient(int id, bool type, int pt, int vt)
 		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0){
-		penalty = ((VT - PT) / 2);
+		if (VT > PT) {
+			penalty = ((VT - PT) / 2);
+		}
 	}  
 
 	
@@ -102,7 +104,7 @@ public:
 
 	//functions
 	void updateStatus(int currentTime) {
-		if (currentTime < VT) {
+		if (currentTime > VT) {
 			Status = IDLE;
 		}
 		else if (VT > PT) {

@@ -24,11 +24,14 @@ Scheduler::~Scheduler() {
 }
 
 
-bool Scheduler::loadInputFile() {
+bool Scheduler::loadInputFile(int input) {
 
 	//input file must always be called input
 	//Place it in Input folder in project folder so its processed
-	std::ifstream inputfile("Input/input.txt");
+	
+	std::string filename = "Input/input" + std::to_string(input) + ".txt";
+
+	std::ifstream inputfile(filename);
 
 	if (!inputfile) {
 		return false;
@@ -144,8 +147,8 @@ void Scheduler::output()
 
 
 
-void Scheduler::Simulation() {
-	loadInputFile();
+void Scheduler::Simulation(int input) {
+	loadInputFile(input);
 	 //print the first time
 	while (finishedPatients != totalPatients) {
 		int X = rand() % 101;
@@ -342,9 +345,6 @@ bool Scheduler::cancel(int x) {
 
 void Scheduler::departAll() {
 	
-	if (ALL_Patients.isEmpty())return ;
-	
-	
 	while (!ALL_Patients.isEmpty()) {
 		Patient* temp;
 		ALL_Patients.peek(temp);
@@ -360,10 +360,18 @@ void Scheduler::departAll() {
 		Patient::PatientStatus stat = temp->getStatus();
 		if (temp->getStatus() == Patient::LATE) {
 
-		//first update his PT to VT+penalty
-			Late_Patients.enqueue(temp,temp->getPT()+temp->getPenalty());
-			temp->setPT(temp->getVT() + temp->getPenalty());
+		//Enque Late patient with priority= ORIGINAL PT +penalty
+			int penalty = temp->getPenalty();
+			int pri = temp->getPT() + penalty;
 
+
+		//update appointment to be VT+penalty
+			int NewPT = temp->getVT() + penalty;
+
+			temp->setPT(NewPT);
+
+			Late_Patients.enqueue(temp,pri);
+			
 		}
 		else if (temp->getStatus() == Patient::ERLY) {
 			Early_Patients.enqueue(temp, temp->getPT());
@@ -408,8 +416,13 @@ void Scheduler::departLate() {
 	//THIS IS STRICTLY CASE 2 : MOVING FROM LATE TO WAITLIST
 	while (!Late_Patients.isEmpty()) {
 		Patient* Temp;
-		int PT;
-		Late_Patients.peek(Temp, PT);
+		int garbage;
+
+		//Remeber, Prio of late patients is NOT PT, its is original PT+penalty
+		//New PT is VT +penalty
+		Late_Patients.peek(Temp, garbage);
+
+		int PT=Temp->getPT();
 
 		//if PT is now, we deque 
 		//else break and return

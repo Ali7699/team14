@@ -23,7 +23,7 @@ public:
 	) {
 		system("cls");
 
-		printNumbers(timestep,X); 
+		printNumbers(timestep); 
 		printAllList(alllist);
 		printWaitinglists(U_Waitlist, E_Waitlist, X_Waitlist);
 		printEarly(EarlyList);
@@ -38,29 +38,9 @@ public:
 	}
 
 
-	void printNumbers(int timestep,int X) {
+	void printNumbers(int timestep) {
 		
 		cout << "Current Timestep:" << timestep;
-		
-		
-		cout << " X=" << X << " Next task: ";
-
-			if (X < 10)
-				cout << "Move from Early to Wait";
-			else if (X < 20)
-				cout << "Move from Late to Wait (penalty)";
-			else if (X < 40)
-				cout << "Move 2 from Wait to Treat";
-			else if (X < 50)
-				cout << "Move from Treat to Wait";
-			else if (X < 60)
-				cout << "Move from Treat to Finish";
-			else if (X < 70)
-				cout << "Move from X-Wait to Finish (cancel)";
-			else if (X < 80)
-				cout << "Move from Early reschedule";
-			else
-				cout << "No action";
 			cout << "\n";
 	}
 

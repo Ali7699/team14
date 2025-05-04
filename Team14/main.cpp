@@ -12,7 +12,10 @@ int main() {
 	
 	schedule.setUI(&ui);
 	
-	schedule.Simulation();
+	std::cout << "Choose input file";
+	int input;
+	std::cin >> input;
+	schedule.Simulation(input);
 	return 0;
 	
 	
