@@ -3,6 +3,7 @@
 #include "UI.h"
 #include "Treatment.h"
 
+
 Scheduler::Scheduler()
 	: timeStep(0), totalPatients(0), finishedPatients(0),Pcancel(0),Presc(0) {
 }
@@ -143,6 +144,76 @@ bool Scheduler::loadInputFile(int input) {
 void Scheduler::output()
 {
 
+	std::ofstream outFile("Output/output.txt");
+	outFile << "PID PTvpe PT VT FT WT TT Cancel Resc\n";
+	
+	//these store info for next print
+	//S is shorthand for sigma or summation
+	int Ncount=0, Rcount = 0, STW = 0, STT = 0, SNTW = 0, SNTT = 0, SRTW = 0, SRTT = 0, Scancel = 0, Sresc = 0, EarlyCount = 0, LateCount = 0, Spenalty = 0;
+	
+	//print patients, and recover info
+	while (!Finished_patients.isEmpty()) {
+		Patient* temp;
+
+		Finished_patients.pop(temp);
+		bool type = temp->getType();
+		char TYPECHAR;
+		
+		if (type == 0) { 
+			Ncount++; 
+			TYPECHAR = 'N';
+			SNTW += temp->getTW();
+			SNTT += temp->getTT();
+		}
+		else if (type == 1){
+			Rcount++;
+			TYPECHAR = 'R';
+			SRTW += temp->getTW();
+			SRTT += temp->getTT();
+		}
+
+		STW += temp->getTW();
+		STT += temp->getTT();
+		
+		char cancelChar = 'F';
+		char rescChar = 'F';
+
+		if (temp->getCancel()) { 
+			Scancel++;
+			cancelChar = 'T';
+		}
+		if (temp->getResc()) {
+			Sresc++;
+			rescChar = 'T';
+		}
+
+		int status = temp->statusForOut();
+		
+		if (status == 1) EarlyCount++;
+		else if (status == 2) { 
+		
+			LateCount++;
+			Spenalty += temp->getPenalty();
+		}
+
+
+
+		outFile << "P" << temp->getId() << "  " << TYPECHAR << "     " << temp->getoriginalPT() << " " << temp->getVT() << " "
+			<< temp->getFT() << " " << temp->getTW() << " " << temp->getTT() << " " << cancelChar << "      " << rescChar << "\n";
+	}
+
+	//c is shorthand for count
+	int c = finishedPatients;
+
+	outFile << "Total number of timesteps = " << timeStep << "\n";
+	outFile << "Total number of all, N, and R patients = " << c << ", " << Ncount << ", " << Rcount << "\n";
+	outFile << "Average total waiting time for all, N, and R patients = " << (STW) / c << ", " << SNTW / c << ", " << SRTW / c << "\n";
+	outFile << "Average total treatment time for all, N, and R patients = " << STT / c << ", " << SNTT / c << ", " << SRTT / c << "\n";
+	outFile << "Percentage of patients of an accepted cancellation (%) = " << 100 * Scancel / c << "%\n";
+	outFile << "Percentage of patients of an accepted rescheduling (%) = " << 100 * Sresc / c << "%\n";
+	outFile << "Percentage of early patients (%) = "<<100*EarlyCount/c<< "%\n";
+	outFile << "Percentage of late patients (%) = " << 100 * LateCount / c << "%\n";
+	outFile << "Average late penalty = " << Spenalty / LateCount << " timestep(s)\n";
 
 }
 

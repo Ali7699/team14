@@ -20,6 +20,9 @@ private:
 	bool Type;
 	// aPpointment Time
 	int PT;	
+
+	const int originalPT;
+
 	//	arriVal Time
 	int VT;	
 	
@@ -46,7 +49,7 @@ private:
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0),cancelCheck(0),rescCheck(0){
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0),cancelCheck(0),rescCheck(0),originalPT(pt){
 		if (VT > PT) {
 			penalty = ((VT - PT) / 2);
 		}
@@ -91,6 +94,10 @@ public:
 
 	bool getResc()const { return rescCheck; }
 
+	int getFT() { return VT + TW + TT; }
+
+	int getoriginalPT() { return originalPT; }
+
 	//Peeks the first element of the treatment list
 	Treatment* getNextTreatment() {
 		Treatment* temp;
@@ -132,6 +139,17 @@ public:
 		else if (VT <= PT) {
 			Status = ERLY;
 		}
+	}
+	int statusForOut() {
+		if (VT < originalPT) {
+			//early
+			return 1;
+		}
+		else if (VT > originalPT) {
+			return 2;
+		}
+		return 0;
+
 	}
 
 	void setCancel(bool input) {
