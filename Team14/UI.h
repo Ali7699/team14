@@ -264,9 +264,11 @@ public:
 		for (int i = 0; i < count; i++) {
 			Patient* garbage;
 			input.dequeue(garbage, pri[i]);
-			cout << " " << garbage->getId() << ",";
+			cout << " P" << garbage->getId() << "_" << garbage->getNextTreatment()->getResource()->getType() << garbage->getNextTreatment()->getResource()->getID() << ",";
 			storage.enqueue(garbage);
 		}
+
+
 		for (int i = 0; i < count; i++) {
 			Patient* garbage;
 			storage.dequeue(garbage);

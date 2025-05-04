@@ -341,21 +341,29 @@ bool Scheduler::cancel(int x) {
 
 
 void Scheduler::departAll() {
+	
 	if (ALL_Patients.isEmpty())return ;
 	
 	
 	while (!ALL_Patients.isEmpty()) {
 		Patient* temp;
 		ALL_Patients.peek(temp);
+
+		int arrivalTime = temp->getVT();
 		
-		if (temp->getVT() > timeStep) {
+		if (arrivalTime > timeStep) {
 			break;
 			}
 		
 		ALL_Patients.dequeue(temp);
 		temp->updateStatus(timeStep);
+		Patient::PatientStatus stat = temp->getStatus();
 		if (temp->getStatus() == Patient::LATE) {
+
+		//first update his PT to VT+penalty
 			Late_Patients.enqueue(temp,temp->getPT()+temp->getPenalty());
+			temp->setPT(temp->getVT() + temp->getPenalty());
+
 		}
 		else if (temp->getStatus() == Patient::ERLY) {
 			Early_Patients.enqueue(temp, temp->getPT());
@@ -404,7 +412,6 @@ void Scheduler::departLate() {
 		Late_Patients.peek(Temp, PT);
 
 		//if PT is now, we deque 
-		// defensive programming: if timestep is bigger we still move them (in case we missed patient from last timestep)
 		//else break and return
 		if (PT <= timeStep) {
 			Late_Patients.dequeue(Temp, PT);

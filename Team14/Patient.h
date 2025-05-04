@@ -105,11 +105,11 @@ public:
 		if (currentTime < VT) {
 			Status = IDLE;
 		}
-		else if (VT < PT) {
-			Status = ERLY;
-		}
 		else if (VT > PT) {
 			Status = LATE;
+		}
+		else if (VT <= PT) {
+			Status = ERLY;
 		}
 	}
 
