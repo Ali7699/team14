@@ -13,6 +13,6 @@ bool UTherapy::canAssign() {
 
 }
 
-void UTherapy::moveToWait() {
+void UTherapy::moveToWait(Scheduler* This, int CASE) {
     
 }

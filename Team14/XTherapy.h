@@ -4,11 +4,11 @@
 class XTherapy :public Treatment {
    
 public:
-    XTherapy(int d) : Treatment('X', d) {}
+    XTherapy(int d);
 
     
 
     bool canAssign() override;
 
-    void moveToWait();
+    void moveToWait(Scheduler* This, int CASE)override;
 };

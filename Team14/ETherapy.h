@@ -8,5 +8,5 @@ public:
 
     bool canAssign() override;
 
-    void moveToWait() override;
+    void moveToWait(Scheduler* This, int CASE) override;
 };

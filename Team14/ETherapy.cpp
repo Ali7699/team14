@@ -8,6 +8,7 @@ bool ETherapy::canAssign() {
 
 }
 
-void ETherapy::moveToWait() {
+void ETherapy::moveToWait(Scheduler*This,int CASE) {
+
 
 }

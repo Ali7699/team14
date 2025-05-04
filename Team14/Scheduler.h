@@ -78,13 +78,11 @@ public:
 	
 	//Addtowaiters and CanAssigners, For Treatment
 
-	bool CanAssignE();
-	bool CanAssignU();
-	bool CanAssignX();
 
-	void AddtoE();
-	void AddtoU();
-	void AddtoX();
+
+	void AddtoE(Patient* input, int CASE);
+	void AddtoU(Patient* input, int CASE);
+	void AddtoX(Patient* input, int CASE);
 
 
 

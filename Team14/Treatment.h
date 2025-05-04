@@ -30,7 +30,7 @@ public:
     virtual bool canAssign() = 0;
 
     // Virtual function to move patient to waiting list
-    virtual void moveToWait() = 0;
+    virtual void moveToWait(Scheduler* This, int CASE) = 0;
     
     static Treatment* createTreatment(char type, int duration);
 

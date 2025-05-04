@@ -178,32 +178,59 @@ void Scheduler::Simulation() {
 
 
 
-bool Scheduler::CanAssignE()
+
+
+
+void Scheduler::AddtoE(Patient*input,int CASE)
 {
-	return false;
+	//only 3 cases: going to waitlist from early, going to waitlist from late, or returning from intreatment
+	//cases: 1 is early, 2 is late, 3 is from 
+	switch (CASE) {
+	case 1:
+		E_Waiting.enqueue(input);
+		return;
+	case 2:
+		E_Waiting.insertSorted(input, false);
+		return;
+	case 3:
+		E_Waiting.insertSorted(input, true);
+		return;
+	}
+
 }
 
-bool Scheduler::CanAssignU()
+void Scheduler::AddtoU(Patient* input, int CASE)
 {
-	return false;
+	//only 3 cases: going to waitlist from early, going to waitlist from late, or returning from intreatment
+//cases: 1 is early, 2 is late, 3 is from 
+	switch (CASE) {
+	case 1:
+		U_Waiting.enqueue(input);
+		return;
+	case 2:
+		U_Waiting.insertSorted(input, false);
+		return;
+	case 3:
+		U_Waiting.insertSorted(input, true);
+		return;
+	}
 }
 
-bool Scheduler::CanAssignX()
+void Scheduler::AddtoX(Patient* input, int CASE)
 {
-	return false;
-}
-
-
-void Scheduler::AddtoE()
-{
-}
-
-void Scheduler::AddtoU()
-{
-}
-
-void Scheduler::AddtoX()
-{
+	//only 3 cases: going to waitlist from early, going to waitlist from late, or returning from intreatment
+//cases: 1 is early, 2 is late, 3 is from 
+	switch (CASE) {
+	case 1:
+		X_Waiting.enqueue(input);
+		return;
+	case 2:
+		X_Waiting.insertSorted(input, false);
+		return;
+	case 3:
+		X_Waiting.insertSorted(input, true);
+		return;
+	}
 }
 
 
