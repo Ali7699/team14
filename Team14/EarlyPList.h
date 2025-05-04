@@ -65,8 +65,15 @@ public:
 
 		TempPatient->setPT(NewAppointment);
 		
+		//set flag as canceled
+		TempPatient->setResc(1);
+
 		//enque with new appointment time (This is a Min que so appointment time is directly priority)
 		enqueue(TempPatient, NewAppointment);
+		
+		
+
+
 		return true;
 
 	}

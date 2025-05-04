@@ -6,7 +6,7 @@ public:
 	
 	//this function is responsible for 1.determining if an eligible patients exists to cancel 2.choosing one of them to deque.
 	//it is NOT responiosble for when its called, might be called when list is empty so naturally no patient return
-	bool cancel(Patient*&outpatient) {
+	bool cancel(Patient*&outpatient,int timestep) {
 		//intilizations
 		Node<Patient*>*current = frontPtr;
 		Patient* Arr[100];
@@ -61,6 +61,17 @@ public:
 		int randomindex = std::rand() % (index);
 		
 		Patient* ChosenPatient = Arr[randomindex];
+		//we found the chosen patient, update his waiting time since now hes done, and flag as canceled
+		{
+			ChosenPatient->setCancel(1);
+
+			int WIS = ChosenPatient->getWIS();
+			int TW = ChosenPatient->getTW();
+			//the logic here:
+			//patient has been waiting since last instance, and add that to the he has intially waited TW
+			ChosenPatient->setTW((WIS - timestep) + TW);
+		}
+
 		
 		//now finally find The Chosenpatient and remove him
 

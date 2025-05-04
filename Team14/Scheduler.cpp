@@ -143,6 +143,7 @@ bool Scheduler::loadInputFile(int input) {
 void Scheduler::output()
 {
 
+
 }
 
 
@@ -332,7 +333,9 @@ bool Scheduler::cancel(int x) {
 	Patient* temp;
 
 	if (Pcancel > x) {
-		bool success=X_Waiting.cancel(temp);
+
+		bool success=X_Waiting.cancel(temp,timeStep);
+
 		if (success) {
 			Finished_patients.push(temp);
 			return true;
@@ -559,7 +562,7 @@ void Scheduler::departIn_Treatment() {
 
 		// Update treatment time
 		//explanation: 
-		Temp->setTT(Temp->getTT() + (timeStep - Temp->getNextTreatment()->getST()));
+		
 
 
 		// Return the resource based on treatment type

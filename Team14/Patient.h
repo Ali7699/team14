@@ -34,16 +34,19 @@ private:
 	
 	// total time patient is in treatment
 	int TT;		
-	
-	
-	
+	//did a patient cancel or not
+	bool cancelCheck;
+	//did a patient reschedule or not
+	bool rescCheck;
+
+
 	PatientStatus Status;
 
 	LinkedQueue<Treatment*> Treatmentlist;
 
 public:
 	Patient(int id, bool type, int pt, int vt)
-		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0){
+		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0),cancelCheck(0),rescCheck(0){
 		if (VT > PT) {
 			penalty = ((VT - PT) / 2);
 		}
@@ -67,9 +70,26 @@ public:
 
 	int getWIS()const { return WIS; }
 
-	int getTT()const { return TT; }
+	int getTT() { 
+		int tt=0;
+		Treatment* temp;
+		if (Treatmentlist.isEmpty()) return 0;
+		int size=Treatmentlist.count();
 
+		for (int i = 0; i < size; i++) {
+			Treatmentlist.dequeue(temp);
+			tt += temp->getDuration();
+			Treatmentlist.enqueue(temp);
 
+		}
+
+		return tt;
+
+	}
+
+	bool getCancel()const { return cancelCheck; }
+
+	bool getResc()const { return rescCheck; }
 
 	//Peeks the first element of the treatment list
 	Treatment* getNextTreatment() {
@@ -100,7 +120,6 @@ public:
 	}
 
 	void setTW(int tw) { TW = tw; }
-	void setTT(int tt) { TT = tt; }
 
 	//functions
 	void updateStatus(int currentTime) {
@@ -113,6 +132,14 @@ public:
 		else if (VT <= PT) {
 			Status = ERLY;
 		}
+	}
+
+	void setCancel(bool input) {
+		cancelCheck = input;
+	}
+
+	void setResc(bool input) {
+		rescCheck = input;
 	}
 
 	void addTreatment(Treatment* t) {
