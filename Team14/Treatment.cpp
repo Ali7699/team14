@@ -4,6 +4,9 @@
 #include "UTherapy.h"
 #include "XTherapy.h"
 #include "Scheduler.h"
+#include"Resource.h"
+#include "Patient.h"
+
 Treatment* Treatment::createTreatment(char type, int duration) {
     switch (type) {
     case 'X':

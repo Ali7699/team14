@@ -1,10 +1,12 @@
 #pragma once
-#include"Resource.h"
+
 
 
 
 //including scheduler causes circular depednacy so this is safer
 class Scheduler;
+class Resource;
+class Patient;
 
 class Treatment {
 protected:
@@ -30,7 +32,7 @@ public:
     virtual bool canAssign() = 0;
 
     // Virtual function to move patient to waiting list
-    virtual void moveToWait(Scheduler* This, int CASE) = 0;
+    virtual void moveToWait(Scheduler* This, Patient* input, int CASE) = 0;
     
     static Treatment* createTreatment(char type, int duration);
 
