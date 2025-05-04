@@ -213,7 +213,14 @@ void Scheduler::output()
 	outFile << "Percentage of patients of an accepted rescheduling (%) = " << 100 * Sresc / c << "%\n";
 	outFile << "Percentage of early patients (%) = "<<100*EarlyCount/c<< "%\n";
 	outFile << "Percentage of late patients (%) = " << 100 * LateCount / c << "%\n";
-	outFile << "Average late penalty = " << Spenalty / LateCount << " timestep(s)\n";
+	int Avgpenalty;
+	if (LateCount != 0) {
+		int Avgpenalty = Spenalty / LateCount;
+	}
+	else {
+		Avgpenalty = 0;
+	}
+	outFile << "Average late penalty = " << Avgpenalty << " timestep(s)\n";
 
 }
 
