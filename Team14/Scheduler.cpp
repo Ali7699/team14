@@ -4,6 +4,7 @@
 #include "Treatment.h"
 #include <iomanip>
 
+
 Scheduler::Scheduler()
 	: timeStep(0), totalPatients(0), finishedPatients(0),Pcancel(0),Presc(0) {
 }
@@ -210,11 +211,6 @@ void Scheduler::output()
 			<< std::setw(9) << cancelChar        
 			<< std::setw(5) << rescChar          
 			<< "\n";
-
-
-
-
-
 	}
 
 	//c is shorthand for count
