@@ -134,6 +134,10 @@ bool Scheduler::loadInputFile(int input) {
 			int duration;
 			ss >> treatmentType;
 			ss >> duration;
+
+			x->setTT(x->getTT() + duration);
+
+
 			Treatment* y = Treatment::createTreatment(treatmentType, duration);
 			x->addTreatment(y);
 		}
@@ -549,8 +553,12 @@ void Scheduler::departE_Waiting() {
 		E_Waiting.dequeue(Temp);
 		
 		//update total waiting time
-		//TW=TW+WIS+timestep
-		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+		//TW=TW+ (timestep-WIS)
+
+		int WIS = Temp->getWIS();
+		int TWsofar = Temp->getTW();
+		Temp->setTW((timeStep-WIS)+TWsofar);
+
 
 		Temp->getNextTreatment()->setResource(Edevice);
 		Temp->getNextTreatment()->setST(timeStep);
@@ -579,7 +587,9 @@ void Scheduler::departU_Waiting() {
 
 		//update total waiting time
 		//TW=TW+WIS+timestep
-		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+		int WIS = Temp->getWIS();
+		int TWsofar = Temp->getTW();
+		Temp->setTW((timeStep - WIS) + TWsofar);
 
 		Temp->getNextTreatment()->setResource(Udevice);
 		Temp->getNextTreatment()->setST(timeStep);
@@ -612,14 +622,13 @@ void Scheduler::departX_Waiting() {
 			continue;
 		}
 		//update total waiting time
-		//TW=TW+WIS+timestep
-		Temp->setTW(Temp->getTW() + Temp->getWIS() + timeStep);
+		//TW=TW+(timestep-WIS)
+		int WIS = Temp->getWIS();
+		int TWsofar = Temp->getTW();
+		Temp->setTW((timeStep - WIS) + TWsofar);
+		
+		
 		Temp->getNextTreatment()->setST(timeStep);
-
-		
-		
-
-
 
 		Temp->getNextTreatment()->setResource(Xroom);
 		Xroom->setPatientCount(Xroom->getPatientCount()+1);
@@ -684,6 +693,10 @@ void Scheduler::departIn_Treatment() {
 
 		// Remove patient from treatment queue
 		In_Treatment.dequeue(Temp, FinishTime);
+
+		//begin new waiting instance
+		Temp->setWIS(FinishTime);
+
 
 		// Reorganize treatment list
 		organizeTreatmentList(Temp);

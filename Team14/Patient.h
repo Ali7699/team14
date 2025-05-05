@@ -50,6 +50,7 @@ private:
 public:
 	Patient(int id, bool type, int pt, int vt)
 		: PID(id), Type(type), PT(pt), VT(vt), Status(IDLE),WIS(vt),TW(0),TT(0),cancelCheck(0),rescCheck(0),originalPT(pt){
+		
 		if (VT > PT) {
 			penalty = ((VT - PT) / 2);
 		}
@@ -74,20 +75,7 @@ public:
 	int getWIS()const { return WIS; }
 
 	int getTT() { 
-		int tt=0;
-		Treatment* temp;
-		if (Treatmentlist.isEmpty()) return 0;
-		int size=Treatmentlist.count();
-
-		for (int i = 0; i < size; i++) {
-			Treatmentlist.dequeue(temp);
-			tt += temp->getDuration();
-			Treatmentlist.enqueue(temp);
-
-		}
-
-		return tt;
-
+		return TT;
 	}
 
 	bool getCancel()const { return cancelCheck; }
@@ -114,7 +102,7 @@ public:
 	PatientStatus getStatus()const {return Status;}
 	
 
-	
+
 	 //setters
 	void setPID(int id) { PID = id; }
 	// 0 = normal NP, 1 = recovering RP
@@ -127,6 +115,13 @@ public:
 	}
 
 	void setTW(int tw) { TW = tw; }
+
+	void setTT(int tt) { TT = tt; }
+
+	void setWIS(int wis) { WIS = wis; }
+
+
+
 
 	//functions
 	void updateStatus(int currentTime) {
