@@ -2,7 +2,7 @@
 #include "Scheduler.h"
 #include "UI.h"
 #include "Treatment.h"
-
+#include <iomanip>
 
 Scheduler::Scheduler()
 	: timeStep(0), totalPatients(0), finishedPatients(0),Pcancel(0),Presc(0) {
@@ -145,7 +145,7 @@ void Scheduler::output()
 {
 
 	std::ofstream outFile("Output/output.txt");
-	outFile << "PID PTvpe PT VT FT WT TT Cancel Resc\n";
+	outFile << "PID  PTvpe   PT   VT   FT   WT   TT   Cancel   Resc\n";
 	
 	//these store info for next print
 	//S is shorthand for sigma or summation
@@ -157,7 +157,7 @@ void Scheduler::output()
 
 		Finished_patients.pop(temp);
 		bool type = temp->getType();
-		char TYPECHAR;
+		char TYPECHAR='N';
 		
 		if (type == 0) { 
 			Ncount++; 
@@ -197,9 +197,24 @@ void Scheduler::output()
 		}
 
 
+		//We use libary for alignment for clear reading
+		//libary is necessary as numbers could be 2 digit or 1 digit
+		outFile << std::left
+			<< std::setw(5) << ("P" + std::to_string(temp->getId()))
+			<< std::setw(8) << TYPECHAR         
+			<< std::setw(5) << temp->getoriginalPT() 
+			<< std::setw(5) << temp->getVT()     
+			<< std::setw(5) << temp->getFT()     
+			<< std::setw(5) << temp->getTW()    
+			<< std::setw(5) << temp->getTT()    
+			<< std::setw(9) << cancelChar        
+			<< std::setw(5) << rescChar          
+			<< "\n";
 
-		outFile << "P" << temp->getId() << "  " << TYPECHAR << "     " << temp->getoriginalPT() << " " << temp->getVT() << " "
-			<< temp->getFT() << " " << temp->getTW() << " " << temp->getTT() << " " << cancelChar << "      " << rescChar << "\n";
+
+
+
+
 	}
 
 	//c is shorthand for count
@@ -213,9 +228,9 @@ void Scheduler::output()
 	outFile << "Percentage of patients of an accepted rescheduling (%) = " << 100 * Sresc / c << "%\n";
 	outFile << "Percentage of early patients (%) = "<<100*EarlyCount/c<< "%\n";
 	outFile << "Percentage of late patients (%) = " << 100 * LateCount / c << "%\n";
-	int Avgpenalty;
+	int Avgpenalty=0;
 	if (LateCount != 0) {
-		int Avgpenalty = Spenalty / LateCount;
+		 Avgpenalty = Spenalty / LateCount;
 	}
 	else {
 		Avgpenalty = 0;

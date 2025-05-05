@@ -1,13 +1,12 @@
-PID PTvpe PT VT FT WT TT Cancel Resc
-P2  R     8 7 92 85 0 F      F
-P0  N     2 1 27 26 0 F      F
-P1  N     2 1 27 26 0 F      F
-Total number of timesteps = 33
-Total number of all, N, and R patients = 3, 2, 1
-Average total waiting time for all, N, and R patients = 45, 17, 28
+PID  PTvpe   PT   VT   FT   WT   TT   Cancel   Resc
+P1   N       2    20   192  172  0    F        F    
+P0   N       10   5    75   70   0    F        F    
+Total number of timesteps = 59
+Total number of all, N, and R patients = 2, 2, 0
+Average total waiting time for all, N, and R patients = 121, 121, 0
 Average total treatment time for all, N, and R patients = 0, 0, 0
 Percentage of patients of an accepted cancellation (%) = 0%
 Percentage of patients of an accepted rescheduling (%) = 0%
-Percentage of early patients (%) = 100%
-Percentage of late patients (%) = 0%
-Average late penalty = 0 timestep(s)
+Percentage of early patients (%) = 50%
+Percentage of late patients (%) = 50%
+Average late penalty = 9 timestep(s)
