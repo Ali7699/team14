@@ -10,8 +10,6 @@ int main() {
 	UI ui;
 	Scheduler schedule;
 	
-	//This is an auxilariy class that insures VT is sorted by ascending downwards, its is unrelated to the project
-
 
 
 

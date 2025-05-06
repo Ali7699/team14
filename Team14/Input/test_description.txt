@@ -1,4 +1,4 @@
-inputs marked CR cannont Run to end, they lack devices or have arbitrary conditions to demonstrate feature
+inputs marked CR CANNOT Run to end, they lack devices or have arbitrary conditions to demonstrate feature
 
 input 1 general test case, shows correct patient movment, with all features active. This alone is enough to demonstrate all features, but can be tedious
 input 2 Shows penalty being applied correctly. refer to explanation for clarity
@@ -6,6 +6,10 @@ input 3 tests X room functionality: Rooms Remain in list untill full. ONLY full 
 input 4 CR tests recovering patients
 input 5 CR tests Cancel operation
 input 6 CR tests Resc operation. This Can Run, But if they reschedule too much, their PT->inf
+
+BONUS
 input 7 is input1 but with more patients to show stability
+input 8 same as 7
+
 NOTE:  device functionalty is present In all cases, so no special input case made
 
