@@ -4,7 +4,6 @@
 
 #include "Scheduler.h"
 #include "UI.h"
-#include "FileSorter.h"
 
 int main() {
 	srand(static_cast<unsigned int>(time(0)));
@@ -13,7 +12,6 @@ int main() {
 	Scheduler schedule;
 	
 	//This is an auxilariy class that insures VT is sorted by ascending downwards, its is unrelated to the project
-	FileSorter Robosort;
 
 
 
@@ -24,7 +22,6 @@ int main() {
 
 	std::string filename = "Input/input" + std::to_string(input) + ".txt";
 
-	Robosort.sortFileByVT(filename);
 
 	
 	bool silent;

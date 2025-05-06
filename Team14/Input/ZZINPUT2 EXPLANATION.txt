@@ -1,3 +1,21 @@
+Document states:
+"Late Patients
+Late patients are the patients with VT > PT. Once arrived, they should be 
+added to a separate list. They must wait in the list for half of their late 
+duration as a late penalty before being added to the appropriate waiting list.
+
+BUT when adding them to a waiting list, place them sorted according to their 
+actual PT + penalty.
+
+Example:
+--------
+If PT = 10 and VT = 16, then the late penalty = (16 - 10) / 2 = 3.
+
+At timestep 19 (16 + 3), the patient will leave the "Late" list and join a 
+waiting list. They should be placed in a position where they precede all 
+patients with PT > 13 (10 + 3)."
+
+
 We input:
 ID PT VT penalty Priority(=oldPT+pen) New PT(=VT+pen)
 0  5  7  1       6                    8
@@ -9,7 +27,7 @@ Notice 0 has the lowest newPT, but will be held in line
 hence, they should sort as, in format [ID,Pri]
 [1,4],[0,6]
 
-then at timestep =8, 2 enters, so it should like 
+then at timestep =8, 2 enters:
 [1,4],[2,5],[0,6]
 
 then at =9, 1 leaves But 2 still holds 0 in line

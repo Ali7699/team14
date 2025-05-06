@@ -222,8 +222,8 @@ void Scheduler::output()
 
 	outFile << "Total number of timesteps = " << timeStep << "\n";
 	outFile << "Total number of all, N, and R patients = " << c << ", " << Ncount << ", " << Rcount << "\n";
-	outFile << "Average total waiting time for all, N, and R patients = " << (STW) / c << ", " << (c != 0 ? SNTW / Ncount : 0) << ", " << (c != 0 ? SRTW/Rcount : 0) << "\n";
-	outFile << "Average total treatment time for all, N, and R patients = " << STT / c << ", " << (c != 0 ? SNTT / Ncount : 0) << ", " << (c != 0 ? SRTT/ Rcount : 0) << "\n";
+	outFile << "Average total waiting time for all, N, and R patients = " << (STW) / c << ", " << (Ncount != 0 ? SNTW / Ncount : 0) << ", " << (Rcount != 0 ? SRTW/Rcount : 0) << "\n";
+	outFile << "Average total treatment time for all, N, and R patients = " << STT / c << ", " << (Ncount != 0 ? SNTT / Ncount : 0) << ", " << (Rcount != 0 ? SRTT/ Rcount : 0) << "\n";
 	outFile << "Percentage of patients of an accepted cancellation (%) = " << 100 * Scancel / c << "%\n";
 	outFile << "Percentage of patients of an accepted rescheduling (%) = " << 100 * Sresc / c << "%\n";
 	outFile << "Percentage of early patients (%) = "<<100*EarlyCount/c<< "%\n";

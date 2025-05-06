@@ -37,9 +37,6 @@
     <Filter Include="ADTs\Array stack">
       <UniqueIdentifier>{a9fab9e3-b8ed-4244-8a18-7404871b1dfd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Auxiliary">
-      <UniqueIdentifier>{6bae926e-d086-4558-8300-0544a5a6ebe7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scheduler.cpp">
@@ -113,9 +110,6 @@
     </ClInclude>
     <ClInclude Include="EU_Waitlist.h">
       <Filter>ADTs\EU Waitlist</Filter>
-    </ClInclude>
-    <ClInclude Include="FileSorter.h">
-      <Filter>Auxiliary</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

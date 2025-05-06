@@ -139,7 +139,6 @@
     <ClInclude Include="EarlyPList.h" />
     <ClInclude Include="ETherapy.h" />
     <ClInclude Include="EU_Waitlist.h" />
-    <ClInclude Include="FileSorter.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Patient.h" />
