@@ -117,5 +117,8 @@
     <ClInclude Include="FileSorter.h">
       <Filter>Auxiliary</Filter>
     </ClInclude>
+    <ClInclude Include="PatientDataGenerator.h">
+      <Filter>Auxiliary</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
