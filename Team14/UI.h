@@ -183,7 +183,7 @@ public:
 		for (int i = 0; i < count; i++) {
 			Patient* garbage;
 			storage.dequeue(garbage);
-			input.enqueue(garbage, garbage->getPT()+garbage->getPenalty());
+			input.enqueue(garbage, garbage->getoriginalPT()+garbage->getPenalty());
 		}
 		cout << "\n";
 	}

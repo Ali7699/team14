@@ -1,0 +1,18 @@
+We input:
+ID PT VT penalty Priority(=oldPT+pen) New PT(=VT+pen)
+0  5  7  1       6                    8
+1  2  7  2       4                    9
+2  3  8  2       5                    10
+
+Notice 0 has the lowest newPT, but will be held in line
+
+hence, they should sort as, in format [ID,Pri]
+[1,4],[0,6]
+
+then at timestep =8, 2 enters, so it should like 
+[1,4],[2,5],[0,6]
+
+then at =9, 1 leaves But 2 still holds 0 in line
+[2,5],[0,6]
+then finally at =10, both suddenly leave because 2 is no longer holding up the line 
+

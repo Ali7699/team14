@@ -5,22 +5,19 @@
 #include "Scheduler.h"
 #include "UI.h"
 #include "FileSorter.h"
-#include "PatientDataGenerator.h"
 
 int main() {
 	srand(static_cast<unsigned int>(time(0)));
 
 	UI ui;
 	Scheduler schedule;
+	
 	//This is an auxilariy class that insures VT is sorted by ascending downwards, its is unrelated to the project
 	FileSorter Robosort;
 
 
 
 	schedule.setUI(&ui);
-
-	
-	
 	std::cout << "Choose input file";
 	int input;
 	std::cin >> input;
