@@ -6,6 +6,6 @@ input 3 tests X room functionality: Rooms Remain in list untill full. ONLY full 
 input 4 CR tests recovering patients
 input 5 CR tests Cancel operation
 input 6 CR tests Resc operation. This Can Run, But if they reschedule too much, their PT->inf
-
+input 7 is input1 but with more patients to show stability
 NOTE:  device functionalty is present In all cases, so no special input case made
 

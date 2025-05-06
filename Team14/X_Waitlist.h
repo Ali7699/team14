@@ -69,7 +69,7 @@ public:
 			int TW = ChosenPatient->getTW();
 			//the logic here:
 			//patient has been waiting since last instance, and add that to the he has intially waited TW
-			ChosenPatient->setTW((WIS - timestep) + TW);
+			ChosenPatient->setTW((timestep-WIS) + TW);
 		}
 
 		

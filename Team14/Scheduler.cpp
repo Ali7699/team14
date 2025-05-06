@@ -154,7 +154,7 @@ void Scheduler::output()
 	
 	//these store info for next print
 	//S is shorthand for sigma or summation
-	int Ncount=0, Rcount = 0, STW = 0, STT = 0, SNTW = 0, SNTT = 0, SRTW = 0, SRTT = 0, Scancel = 0, Sresc = 0, EarlyCount = 0, LateCount = 0, Spenalty = 0;
+	double Ncount=0, Rcount = 0, STW = 0, STT = 0, SNTW = 0, SNTT = 0, SRTW = 0, SRTT = 0, Scancel = 0, Sresc = 0, EarlyCount = 0, LateCount = 0, Spenalty = 0;
 	
 	//print patients, and recover info
 	while (!Finished_patients.isEmpty()) {
@@ -218,7 +218,7 @@ void Scheduler::output()
 	}
 
 	//c is shorthand for count
-	int c = finishedPatients;
+	double c = finishedPatients;
 
 	outFile << "Total number of timesteps = " << timeStep << "\n";
 	outFile << "Total number of all, N, and R patients = " << c << ", " << Ncount << ", " << Rcount << "\n";

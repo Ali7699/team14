@@ -4,7 +4,6 @@
 
 #include "Scheduler.h"
 #include "UI.h"
-
 int main() {
 	srand(static_cast<unsigned int>(time(0)));
 
@@ -15,6 +14,7 @@ int main() {
 
 
 
+
 	schedule.setUI(&ui);
 	std::cout << "Choose input file";
 	int input;
@@ -22,6 +22,7 @@ int main() {
 
 	std::string filename = "Input/input" + std::to_string(input) + ".txt";
 
+	
 
 	
 	bool silent;
